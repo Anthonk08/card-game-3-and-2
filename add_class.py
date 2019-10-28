@@ -18,7 +18,7 @@ class Deck:
 #   def deckPlay2(self,deck2):
 #     self.deck2 = deck2
 
-class firstPlayer:
+class Player:
     def __init__(self,name,lastName):
       self.name = name
       self.lastName= lastName
@@ -55,8 +55,8 @@ lastName1 = input("First player last name: ")
 name2 = input("Second player name: ")
 lastName2 = input("Second player last name: ")
 
-nameofFirstPlayer = firstPlayer(name1,lastName1)
-nameofSecondPlayer = firstPlayer(name2,lastName2)
+nameofFirstPlayer = Player(name1,lastName1)
+nameofSecondPlayer = Player(name2,lastName2)
 
 print(nameofFirstPlayer.namefirst())
 for i in range(0,5):
