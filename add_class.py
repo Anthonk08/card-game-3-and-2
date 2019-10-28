@@ -25,14 +25,14 @@ class PrimerJugador:
    
     def NombrePrimer(self):
       return '{} {}'.format(self.Nombre,self.Apellido)
-##revisar.
-class SegundoJugador:
-    def __init__(self,Nombre,Apellido):
-      self.Nombre = Nombre
-      self.Apellido= Apellido
+# ##revisar.
+# class SegundoJugador:
+#     def __init__(self,Nombre,Apellido):
+#       self.Nombre = Nombre
+#       self.Apellido= Apellido
    
-    def NombreSegundo(self):
-      return '{} {}'.format(self.Nombre,self.Apellido)
+#     def NombreSegundo(self):
+#       return '{} {}'.format(self.Nombre,self.Apellido)
 
 
 
@@ -43,16 +43,22 @@ simbolos = [["Rojo","Corazon"],["Rojo","Diamante"],["Negra","Trebol"],["Negra","
 for s in simbolos:
   for v in valores:
     lista.append( Carta(v,s[0],s[1]) )
-# print (lista[1].color)
+
 random.shuffle(lista)
-# for i in lista:
+
 MazoA=0
 MazoA2 = 0
 ListaSinP=[]
+
 Nombre1 = input('Nombre del jugador: ')
 Apellido1 = input('Apellido del jugador: ')
-  
+
+Nombre2 = input('Nombre del segundo jugador: ')
+Apellido2 = input('Apellido del segundo jugador: ')
+
 NombreDelPrimerJugador= PrimerJugador(Nombre1,Apellido1)
+NombreDelSegundoJugador= PrimerJugador(Nombre2,Apellido2)
+
 print(NombreDelPrimerJugador.NombrePrimer())
 for i in range(0,5):
   MazoA= (lista[i].devolver())
@@ -61,24 +67,15 @@ for i in range(0,5):
   ObjetoMazo = Mazo()
   ObjetoMazo.MazoJugar(MazoA)
   print (ObjetoMazo.MazoAA)
-####################"El Segundo Jugador "###################
-def NoRepetir(self):
-    for l in lista:
-      for p in ListaSinP: 
-        if lista[l].find(ListaSinP[p]):
-          contador = lista.pop(ListaSinP[p])
-def El(self):
-    print( '{}'.format(self.contador))
-    
-Nombre2 = input('Nombre del segundo jugador: ')
-Apellido2 = input('Apellido del segundo jugador: ')
-NombreDelSegundoJugador= SegundoJugador(Nombre2,Apellido2)
 
-print(NombreDelSegundoJugador.NombreSegundo())
+####################"El Segundo Jugador "###################
+
+print(NombreDelSegundoJugador.NombrePrimer())
 for j in range(0,5):
   # for k in len(ListaSinP):
   #   lista.pop(k)
     MazoA2 = lista[j].devolver()
+    
     random.shuffle(lista)
     ObjetoMazo2 = Mazo2()
     ObjetoMazo2.MazoJugar2(MazoA2)
