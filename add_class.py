@@ -1,30 +1,30 @@
 #Inicio del programa en esta archivo se crearan las clases que utilizaremos alrededor del tiempo que estemos trabajando con este mini-proyecto.
 #Actualizacion de las clases
 
-class Carta:
-  def __init__(self,valor,color,simbolo):
-    self.valor = valor
+class Card:
+  def __init__(self,value,color,symbol):
+    self.value = value
     self.color = color
-    self.simbolo = simbolo
+    self.symbol = symbol
     
-  def devolver(self):
-    return '{} {} {}'.format(self.valor,self.color,self.simbolo)
+  def information(self):
+    return '{} {} {}'.format(self.value,self.color,self.symbol)
 
-class Mazo:
-    def MazoJugar(self,MazoAA):
-      self.MazoAA = MazoAA
+class Deck1:
+    def deckPlay1(self,deck1):
+      self.deck1 = deck1
 
-class Mazo2:
-  def MazoJugar2(self,MazoAA2):
-    self.MazoAA2 = MazoAA2
+class Deck2:
+  def deckPlay2(self,deck2):
+    self.deck2 = deck2
 
-class PrimerJugador:
-    def __init__(self,Nombre,Apellido):
-      self.Nombre = Nombre
-      self.Apellido= Apellido
+class firstPlayer:
+    def __init__(self,name,lastName):
+      self.name = name
+      self.lastName= lastName
    
-    def NombrePrimer(self):
-      return '{} {}'.format(self.Nombre,self.Apellido)
+    def namefirst(self):
+      return '{} {}'.format(self.name,self.lastName)
 # ##revisar.
 # class SegundoJugador:
 #     def __init__(self,Nombre,Apellido):
@@ -37,47 +37,46 @@ class PrimerJugador:
 
 
 import random
-lista=[]
-valores = ["A","2","3","4","5","6","7","8","9","10","J","Q","K"]
-simbolos = [["Rojo","Corazon"],["Rojo","Diamante"],["Negra","Trebol"],["Negra","Pico"]]
-for s in simbolos:
-  for v in valores:
-    lista.append( Carta(v,s[0],s[1]) )
+list = []
+values = ["A","2","3","4","5","6","7","8","9","10","J","Q","K"]
+symbols = [["Red","Heart"],["Red","Diamond"],["Black","Clover"],["Black","Peak"]]
+for s in symbols:
+  for v in values:
+    list.append(Card(v,s[0],s[1]) )
 
-random.shuffle(lista)
+random.shuffle(list)
 
-MazoA=0
-MazoA2 = 0
-ListaSinP=[]
+deck1 = []
+deck2 = []
 
-Nombre1 = input('Nombre del jugador: ')
-Apellido1 = input('Apellido del jugador: ')
+name1 = input("First player name: ")
+lastName1 = input("First player last name: ")
 
-Nombre2 = input('Nombre del segundo jugador: ')
-Apellido2 = input('Apellido del segundo jugador: ')
+name2 = input("Second player name: ")
+lastName2 = input("Second player last name: ")
 
-NombreDelPrimerJugador= PrimerJugador(Nombre1,Apellido1)
-NombreDelSegundoJugador= PrimerJugador(Nombre2,Apellido2)
+nameofFirstPlayer = firstPlayer(name1,lastName1)
+nameofSecondPlayer = firstPlayer(name2,lastName2)
 
-print(NombreDelPrimerJugador.NombrePrimer())
+print(nameofFirstPlayer.namefirst())
 for i in range(0,5):
-  MazoA= (lista[i].devolver())
-  ListaSinP.append(MazoA)
+  deck1.append(list.pop().information())
   
-  ObjetoMazo = Mazo()
-  ObjetoMazo.MazoJugar(MazoA)
-  print (ObjetoMazo.MazoAA)
+  
+objectDeck1 = Deck1()
+objectDeck1.deckPlay1(deck1)
+print (objectDeck1.deck1)
 
 ####################"El Segundo Jugador "###################
 
-print(NombreDelSegundoJugador.NombrePrimer())
+print(nameofSecondPlayer.namefirst())
 for j in range(0,5):
   # for k in len(ListaSinP):
   #   lista.pop(k)
-    MazoA2 = lista[j].devolver()
+    deck2.append(list.pop().information())
     
-    random.shuffle(lista)
-    ObjetoMazo2 = Mazo2()
-    ObjetoMazo2.MazoJugar2(MazoA2)
-    print (ObjetoMazo2.MazoAA2)
+random.shuffle(list)
+objectDeck2 = Deck2()
+objectDeck2.deckPlay2(deck2)
+print (objectDeck2.deck2)
 
