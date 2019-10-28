@@ -1,4 +1,5 @@
 #Inicio del programa en esta archivo se crearan las clases que utilizaremos alrededor del tiempo que estemos trabajando con este mini-proyecto.
+#Actualizacion de las clases
 
 class Carta:
   def __init__(self,valor,color,simbolo):
