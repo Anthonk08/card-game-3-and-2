@@ -10,13 +10,13 @@ class Card:
   def information(self):
     return '{} {} {}'.format(self.value,self.color,self.symbol)
 
-class Deck1:
-    def deckPlay1(self,deck1):
-      self.deck1 = deck1
+class Deck:
+    def deckPlay1(self,deck):
+      self.deck = deck
 
-class Deck2:
-  def deckPlay2(self,deck2):
-    self.deck2 = deck2
+# class Deck2:
+#   def deckPlay2(self,deck2):
+#     self.deck2 = deck2
 
 class firstPlayer:
     def __init__(self,name,lastName):
@@ -63,9 +63,9 @@ for i in range(0,5):
   deck1.append(list.pop().information())
   
   
-objectDeck1 = Deck1()
+objectDeck1 = Deck()
 objectDeck1.deckPlay1(deck1)
-print (objectDeck1.deck1)
+print (objectDeck1.deck)
 
 ####################"El Segundo Jugador "###################
 
@@ -76,7 +76,7 @@ for j in range(0,5):
     deck2.append(list.pop().information())
     
 random.shuffle(list)
-objectDeck2 = Deck2()
-objectDeck2.deckPlay2(deck2)
-print (objectDeck2.deck2)
+objectDeck2 = Deck()
+objectDeck2.deckPlay1(deck2)
+print (objectDeck2.deck)
 
