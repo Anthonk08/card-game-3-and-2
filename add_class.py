@@ -61,7 +61,7 @@ nameofSecondPlayer = Player(name2,lastName2)
 print(nameofFirstPlayer.namefirst())
 for i in range(0,5):
   deck1.append(list.pop().information())
-  
+
   
 objectDeck1 = Deck()
 objectDeck1.deckPlay1(deck1)
@@ -80,3 +80,26 @@ objectDeck2 = Deck()
 objectDeck2.deckPlay1(deck2)
 print (objectDeck2.deck)
 
+class Game:
+  def __init__(self,playerTurn):
+    self.playerTurn = playerTurn
+    self.mazodescarga = []
+    self.message = "Ronda: "
+  
+  def Turn(self):
+    if self.playerTurn == nameofFirstPlayer:
+      deck1.append(list.pop().information())
+      print ("--"*32)
+      print(nameofFirstPlayer.namefirst())
+      return deck1
+    else:
+      deck2.append(list.pop().information())
+      print ("--"*32)
+      print(nameofSecondPlayer.namefirst())
+      return deck2
+      
+game = Game(nameofFirstPlayer)
+game2 = Game(nameofSecondPlayer)
+print(game.Turn())
+print(game2.Turn())
+    
