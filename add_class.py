@@ -92,15 +92,20 @@ class Game:
       print ("--"*32)
       print(nameofFirstPlayer.namefirst())
       return deck1
+      
+      # for descargajugadoruno in list:
+      #   for mazoquetiene in deck1:
+      #     if list[descargajugadoruno] != deck1[mazoquetiene]:
+      #       self.mazodescarga.append(list.pop)
+      
     else:
       deck2.append(list.pop().information())
       print ("--"*32)
       print(nameofSecondPlayer.namefirst())
       return deck2
       
-      
 game = Game(nameofFirstPlayer)
 game2 = Game(nameofSecondPlayer)
 print(game.Turn())
 print(game2.Turn())
-    
+
