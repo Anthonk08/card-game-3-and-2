@@ -98,6 +98,7 @@ class Game:
       print(nameofSecondPlayer.namefirst())
       return deck2
       
+      
 game = Game(nameofFirstPlayer)
 game2 = Game(nameofSecondPlayer)
 print(game.Turn())
