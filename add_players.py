@@ -4,20 +4,17 @@ class Players:
     num_player = 1
     def __init__(self, handCard):
         self.handCard = handCard
+        self.player()
+        Players.num_player+=1
 
     def show(self):
         return '{} {} {}'.format(self.name,self.lastName,self.player)
 
-    def player(self, name, lastName, player,):
-        self.name = name
-        self.lastName = lastName
-        self.player = player
-        name = input("First player name: ")
-        lastName = input("First player last name: ")
-        player_num = "Player #{}".format(num_player)
-        info_player = Players(name, lastName, player_num)
-        print(info_player())
-
+    def player(self):
+        self.name = input("First player name: ")
+        self.lastName = input("First player last name: ")
+        self.player_num = "Player #{}".format(Players.num_player)
+        
 
 
 
