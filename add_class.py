@@ -86,26 +86,91 @@ class Game:
     self.mazodescarga = []
     self.message = "Ronda: "
   
-  def Turn(self):
+  def Turn1(self):
     if self.playerTurn == nameofFirstPlayer:
       deck1.append(list.pop().information())
-      print ("--"*32)
+      print ("--" * 32)
       print(nameofFirstPlayer.namefirst())
-      return deck1
+      print( deck1)
+
+      print('''
+        A -- te quedas con la carta
+        B -- lanza la misma carta
+      ''')
+      write = input("respuesta: ")
+      if write == "B":
+        self.mazodescarga.append(deck1.pop())
+        return deck1 , self.mazodescarga
+      if write == "A":
+        print (deck1)
+        elige = input("Posicion de carta que odiasxd: ")
+        if elige == "0":
+          self.mazodescarga.append(deck1.pop(0))
+          return self.mazodescarga
+        elif elige == "1":
+          self.mazodescarga.append(deck1.pop(1))
+          return self.mazodescarga
+        elif elige == "2":
+          self.mazodescarga.append(deck1.pop(2))
+          return self.mazodescarga
+        elif elige == "3":
+          self.mazodescarga.append(deck1.pop(3))
+          return self.mazodescarga
+        elif elige == "4":
+          self.mazodescarga.append(deck1.pop(4))
+          return self.mazodescarga
+        elif elige == "5":
+          self.mazodescarga.append(deck1.pop(5))
+          return self.mazodescarga
+        else:
+          print("No se encuentra entre los posibles numeros")
       
-      # for descargajugadoruno in list:
-      #   for mazoquetiene in deck1:
-      #     if list[descargajugadoruno] != deck1[mazoquetiene]:
-      #       self.mazodescarga.append(list.pop)
-      
-    else:
-      deck2.append(list.pop().information())
-      print ("--"*32)
-      print(nameofSecondPlayer.namefirst())
-      return deck2
-      
+    # for descargajugadoruno in list:
+    #   for mazoquetiene in deck1:
+    #     if list[descargajugadoruno] != deck1[mazoquetiene]:
+    #       self.mazodescarga.append(list.pop)
+
+  def Turn2(self):
+      if self.playerTurn == nameofSecondPlayer:
+        deck2.append(list.pop().information())
+        print ("--"*32)
+        print(nameofSecondPlayer.namefirst())
+        print (deck2)
+
+        print('''
+          A -- te quedas con la carta
+          B -- lanza la misma carta
+        ''')
+        write = input("respuesta: ")
+        if write == "B":
+          self.mazodescarga.append(deck1.pop())
+          return deck1 , self.mazodescarga
+        if write == "A":
+          print (deck1)
+          elige = input("Posicion de carta que odiasxd: ")
+          if elige == "0":
+            self.mazodescarga.append(deck1.pop(0))
+            return self.mazodescarga
+          elif elige == "1":
+            self.mazodescarga.append(deck1.pop(1))
+            return self.mazodescarga
+          elif elige == "2":
+            self.mazodescarga.append(deck1.pop(2))
+            return self.mazodescarga
+          elif elige == "3":
+            self.mazodescarga.append(deck1.pop(3))
+            return self.mazodescarga
+          elif elige == "4":
+            self.mazodescarga.append(deck1.pop(4))
+            return self.mazodescarga
+          elif elige == "5":
+            self.mazodescarga.append(deck1.pop(5))
+            return self.mazodescarga
+          else:
+            print("No se encuentra entre los posibles numeros")
+
+
 game = Game(nameofFirstPlayer)
 game2 = Game(nameofSecondPlayer)
-print(game.Turn())
-print(game2.Turn())
-
+print (game.Turn1())
+print (game2.Turn2())
