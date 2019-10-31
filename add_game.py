@@ -1,21 +1,36 @@
 from add_players import Players
+from add_deck import Deck
 
 #COMENTA LO QUE HAGAS, POR FAVOR!!!
 
-# class Game:
-#     def __init__(self,playerTurn):
-#         self.playerTurn = playerTurn
-#         self.mazodescarga = []
-#         self.message = "Ronda: "
+class Game:
+    def __init__(self):
+        self.date = Players()
+        self.date2 = Players()
+        self.deck = Deck()
+        self.datos.fillHandCard()
+        self.datos.show()
+    def coco(self):
+        if self.datos.name == "jose":
+
+
+
+
+
+
+#         # self.playerTurn = playerTurn
+#         # self.mazodescarga = []
+#         # self.message = "Ronda: "
+#         self.handCard = handCard.addCard()
     
 #     def turn(self):
-#         contador = 0
-#         contador += 1
-#         print ("Ronda: " , contador) 
+#         # contador = 0
+#         # contador += 1
+#         # print ("Ronda: " , contador) 
     
 #         while True:
 #             if self.playerTurn == nameofFirstPlayer:
-#                 handCard.append(list.pop().information())
+#                 Players.handCard.append(list.pop().information())
 #                 print ("--" * 32)
 #                 print(nameofFirstPlayer.namefirst())
 #                 print (handCard)

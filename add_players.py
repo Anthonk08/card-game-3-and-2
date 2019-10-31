@@ -1,5 +1,6 @@
 #Diseño de la consola.
 from add_deck import Deck
+from add_players import Players
 
 #COMENTA LO QUE HAGAS, POR FAVOR!!!
 
