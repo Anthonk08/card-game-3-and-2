@@ -1,5 +1,5 @@
-# from add_players import Players
-# from add_deck import Deck
+from add_players import Players
+from add_deck import Deck
 
 # #COMENTA LO QUE HAGAS, POR FAVOR!!!
 
@@ -13,8 +13,47 @@
 
 # game1 = Game()
 # print (game1)
-
-
+class Game:
+    def __init__(self):
+        self.player1 = Players()
+        self.baraja = Deck()
+        self.baraja.fillDeck()
+        self.player1.fillHandCard(self.baraja) #porsiaca'
+        self.turn() #X(le falta algo)
+        
+    
+    def turn(self):
+        
+        print('''
+#                 A -- te quedas con la carta
+#                 B -- lanza la misma carta
+#             ''')
+        write = input("Answer: ")
+        if write == "B":
+            print (self.player1.handCard.pop().information())
+        if write == "A":
+            print (self.player1.showCards())
+            option = ["0", "1", "2", "3", "4", "5"]
+            while True:
+                elige = input("Posicion de carta que deseas cambiar: ")
+                if elige in option:
+                    self.baraja.discard_deck.append(self.player1.handCard.pop(int(elige)))
+                    print(self.baraja.showCards())
+                    break
+                else:
+                    print("incorrecto")
+    def winner(self):
+        
+            # for i in range(0,len(option)):
+            #     try:
+            #         if elige == option[i]:
+            #             self.baraja.discard_deck.append(self.player1.handCard.pop(int(option[i])))
+            #             print (self.baraja.showCards())
+            #     except:
+            #         print('ESTUPIDO') 
+                
+                    
+game = Game()
 
 
 #         # self.playerTurn = playerTurn

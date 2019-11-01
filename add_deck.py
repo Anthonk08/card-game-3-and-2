@@ -8,6 +8,7 @@ import random
 class Deck:
     def __init__(self):
       self.cards = []
+      self.discard_deck = []
       
     
     #Metodo encargado de llenar la baraja
@@ -24,6 +25,15 @@ class Deck:
     def sendCard(self):
         #Toma la ultima carta de la baraja.
         return self.cards.pop()
+
+    def discardDeck(self):
+        #Toma la ultima carta de la baraja.
+        return self.discard_deck.append(self.handCard.pop())
+
+    def showCards(self):
+        #Llenado de un String con las 5 cartas para imprimir en los datos de cada jugador
+        
+        return self.discard_deck[len(self.discard_deck)-1].information()
    
 
 
