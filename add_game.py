@@ -1,19 +1,18 @@
-from add_players import Players
-from add_deck import Deck
+# from add_players import Players
+# from add_deck import Deck
 
-#COMENTA LO QUE HAGAS, POR FAVOR!!!
+# #COMENTA LO QUE HAGAS, POR FAVOR!!!
 
-class Game:
-    def __init__(self):
-        self.date = Players()
-        self.date2 = Players()
-        self.deck = Deck()
-        self.datos.fillHandCard()
-        self.datos.show()
-    def coco(self):
-        if self.datos.name == "jose":
+# class Game:
+#     def __init__(self):
+#         self.player1 = Players()
+#         self.deck = Deck()
+#         self.date.fillHandCard()
+#         self.date.show()
+        
 
-
+# game1 = Game()
+# print (game1)
 
 
 

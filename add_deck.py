@@ -8,6 +8,7 @@ import random
 class Deck:
     def __init__(self):
       self.cards = []
+      
     
     #Metodo encargado de llenar la baraja
     def fillDeck(self):
@@ -23,5 +24,6 @@ class Deck:
     def sendCard(self):
         #Toma la ultima carta de la baraja.
         return self.cards.pop()
+   
 
 
