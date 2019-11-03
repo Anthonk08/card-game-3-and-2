@@ -21,7 +21,6 @@ class Game:
         self.player1.fillHandCard(self.baraja) #porsiaca'
         self.turn() #X(le falta algo)
         
-    
     def turn(self):
         
         print('''
@@ -42,8 +41,24 @@ class Game:
                     break
                 else:
                     print("incorrecto")
+
+
     def winner(self):
-        
+        #Este metodo verificará si alguno d elos jugadores tiene las cartas necesarias para ganar
+        Mazodeljugador ='BBAAA'
+        Ganador = []
+        mensaje = "Ganaste"
+        for i in Mazodeljugador:
+            if Ganador:
+                if i != Ganador[-1]:
+                    Ganador.append(i)
+                    if len(Ganador) == 2:
+                        print(mensaje)
+            else:
+                Ganador.append(i)
+        print(Ganador)
+
+
             # for i in range(0,len(option)):
             #     try:
             #         if elige == option[i]:
