@@ -22,11 +22,7 @@ class Game:
         self.turn() #X(le falta algo)
         
     def turn(self):
-        
-        print('''
-#                 A -- te quedas con la carta
-#                 B -- lanza la misma carta
-#             ''')
+        print("\nOpciones de la carta: \nA -- te quedas con la carta \nB -- lanza la misma carta")
         write = input("Answer: ")
         if write == "B":
             print (self.player1.handCard.pop().information())
@@ -68,7 +64,7 @@ class Game:
             #         print('ESTUPIDO') 
                 
                     
-game = Game()
+Game()
 
 
 #         # self.playerTurn = playerTurn
