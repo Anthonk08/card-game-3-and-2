@@ -1,8 +1,6 @@
 #Diseño de la consola.
 
 from add_deck import Deck
-#Cuando intento copilar, llamando la clase Game me da error, pero necesito Game.
-#from add_game import Game
 
 #COMENTA LO QUE HAGAS, POR FAVOR!!!#
 class Players:
@@ -47,31 +45,13 @@ class Players:
         #Esto es un ejemplo.
         # a = f"Diga su nombre, por favor :v{self.name}"
     
-    #El metodo choise, se encarga de preguntar al jugador, que carta eligira: una de la baraja o una de la baraja de descarte.
-    def choice(self):
-        print("\nElige una de las opciones: \n1 -- Deseas una carta de la baraja. \n2 -- Deseas una carta de la baraja de descarte.")
-        while True:
-            choises = input("ANSWER: ")    
-            if choises == "1":
-                Game()
-            if choises == "2":
-                discard_deck()
-            else:
-                print("Error, a digitado un numero incorrecto.\nElija una opcion del 1-2.")
+# baraja = Deck()
+# baraja.fillDeck()
 
-
-
-
-
-baraja = Deck()
-baraja.fillDeck()
-
-player1 = Players()
-player1.fillHandCard(baraja)
-player1.showCards()
-print(player1.show())
-player1.choice()
-
+# player1 = Players()
+# player1.fillHandCard(baraja)
+# player1.showCards()
+# print(player1.show())
 
 # player2 = Players()
 # player2.fillHandCard(baraja)

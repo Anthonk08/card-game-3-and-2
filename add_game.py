@@ -19,8 +19,22 @@ class Game:
         self.baraja = Deck()
         self.baraja.fillDeck()
         self.player1.fillHandCard(self.baraja) #porsiaca'
+        self.choice()
         self.turn() #X(le falta algo)
-        
+
+    #El metodo choise, se encarga de preguntar al jugador, que carta eligira: una de la baraja o una de la baraja de descarte.
+    def choice(self):
+        print("\nElige una de las opciones: \n1 -- Deseas una carta de la baraja. \n2 -- Deseas una carta de la baraja de descarte.")
+        while True:
+            choises = input("ANSWER: ")    
+            if choises == "1":
+                self.turn()
+            if choises == "2":
+                #ESTO DEBO REVISARLO
+                discardDeck()
+            else:
+                print("Error, a digitado un numero incorrecto.\nElija una opcion del 1-2.")
+
     def turn(self):
         print("\nOpciones de la carta: \nA -- te quedas con la carta \nB -- lanza la misma carta")
         write = input("Answer: ")
@@ -55,6 +69,10 @@ class Game:
         print(Ganador)
 
 
+Game()
+
+
+
             # for i in range(0,len(option)):
             #     try:
             #         if elige == option[i]:
@@ -64,7 +82,7 @@ class Game:
             #         print('ESTUPIDO') 
                 
                     
-Game()
+
 
 
 #         # self.playerTurn = playerTurn
