@@ -32,7 +32,8 @@ class Game:
                 self.turn()
             if choises == "2":
                 #ESTO DEBO REVISARLO
-                self.discardDeck()
+                self.baraja.discardDeck()
+                self.turn()
             else:
                 print("Error, a digitado un numero incorrecto.\nElija una opcion del 1-2.")
 
@@ -52,11 +53,14 @@ class Game:
                     break
                 else:
                     print("Error, digito un numero incorrecto, debe digitar un numero del 1-5")
+        else:
+            print("Error, digito un caracter incorrecto, debe digitar la letra A o B")
 
+        
 
     def winner(self):
         #Este metodo verificará si alguno d elos jugadores tiene las cartas necesarias para ganar
-        Mazodeljugador = self.handCard
+        Mazodeljugador = self.player1.handCard
         Ganador = []
         mensaje = "Ganaste"
         for i in Mazodeljugador:
@@ -132,3 +136,7 @@ game = Deck()
 # nameofSecondPlayer = Players(playerTurn)
 # game2 = Game(nameofSecondPlayer)
 # print (game2.turn())
+
+
+#Eligiste la carta a descartar
+# carta_desscartada = player1.discarHandCard(elige)

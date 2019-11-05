@@ -1,6 +1,6 @@
-#Creacion de cartas
+# Creacion de cartas
 
-#COMENTA LO QUE HAGAS, POR FAVOR!!!
+# COMENTA LO QUE HAGAS, POR FAVOR!!!
 
 class Card:
   #Atributos de la clase card

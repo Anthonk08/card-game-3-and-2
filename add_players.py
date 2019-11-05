@@ -1,7 +1,5 @@
 #Diseño de la consola.
-
-from add_deck import Deck
-
+from add_deck import Deck #lo quite.
 #COMENTA LO QUE HAGAS, POR FAVOR!!!#
 class Players:
     num_player = 1
@@ -18,6 +16,11 @@ class Players:
         #Llama el objeto baraja 5 veces para llenar la mano
         for i in range(0,5):
             self.addCard(baraja)
+
+    # def discarHandCard(self):
+    #     return self.handCard.pop()
+    def discarHandCard(self):
+        return self.handCard.pop()
 
     def addCard(self,baraja):
         #Se encarga de agregar una carta a la mano de un jugador 
@@ -44,7 +47,8 @@ class Players:
         self.player_num = f"Player #{Players.num_player}."
         #Esto es un ejemplo.
         # a = f"Diga su nombre, por favor :v{self.name}"
-    
+
+   
 # baraja = Deck()
 # baraja.fillDeck()
 
