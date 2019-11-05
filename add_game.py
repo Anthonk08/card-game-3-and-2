@@ -21,6 +21,7 @@ class Game:
         self.player1.fillHandCard(self.baraja) #porsiaca'
         self.choice()
         self.turn() #X(le falta algo)
+        self.winner()
 
     #El metodo choise, se encarga de preguntar al jugador, que carta eligira: una de la baraja o una de la baraja de descarte.
     def choice(self):
@@ -31,7 +32,7 @@ class Game:
                 self.turn()
             if choises == "2":
                 #ESTO DEBO REVISARLO
-                discardDeck()
+                self.discardDeck()
             else:
                 print("Error, a digitado un numero incorrecto.\nElija una opcion del 1-2.")
 
@@ -50,12 +51,12 @@ class Game:
                     print(self.baraja.showCards())
                     break
                 else:
-                    print("incorrecto")
+                    print("Error, digito un numero incorrecto, debe digitar un numero del 1-5")
 
 
     def winner(self):
         #Este metodo verificará si alguno d elos jugadores tiene las cartas necesarias para ganar
-        Mazodeljugador ='BBAAA'
+        Mazodeljugador = self.handCard
         Ganador = []
         mensaje = "Ganaste"
         for i in Mazodeljugador:
@@ -70,7 +71,7 @@ class Game:
 
 
 Game()
-
+game = Deck()
 
 
             # for i in range(0,len(option)):
