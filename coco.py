@@ -17,7 +17,6 @@ class Deck:
     def __init__(self):
       self.cards = []
       self.discard_deck = []
-      self.player1 = Players()
 
     #Metodo encargado de llenar la baraja
     def fillDeck(self):
@@ -35,9 +34,9 @@ class Deck:
         #Toma la ultima carta de la baraja.
         return self.cards.pop()
 
-    def discardDeck(self):
+    def discardDeck(self,currentPlayer): #cree un parametro
         #Toma la ultima carta de la baraja.
-        return self.discard_deck.append(self.player1.discarHandCard())
+        return self.discard_deck.append(currentPlayer.discarHandCard())
     
     def showCards(self):
         #Llenado de un String con las 5 cartas para imprimir en los datos de cada jugador
@@ -74,7 +73,7 @@ class Players:
         listCard = ""
         for card in self.handCard:
             listCard += card.information() + " "
-        return listCard
+        print (listCard)
 
     
     #Metodo para mostrar los datos de cada jugador
@@ -95,25 +94,23 @@ class Game:
         self.player1 = Players()
         self.baraja = Deck()
         self.baraja.fillDeck()
-        self.player1.fillHandCard(self.baraja) #porsiaca'
+        self.player1.fillHandCard(self.baraja)
         print(self.player1.show())
-        self.choice()
+        self.choice(self.baraja) #agregado por rita
         self.turn() #X(le falta algo)
         self.winner()
 
     #El metodo choise, se encarga de preguntar al jugador, que carta eligira: una de la baraja o una de la baraja de descarte.
-    def choice(self):
-        print(self.baraja.discardDeck())
+    def choice(self,barajita):
+        print(barajita.discardDeck(self.player1))
         print("\nElige una de las opciones: \n1 -- Deseas una carta de la baraja. \n2 -- Deseas una carta de la baraja de descarte.")
         while True:
-            choises = input("ANSWER: ")    
+            choises = input("ANSWER: ")
+            
             if choises == "1":
-                # self.baraja.discardDeck()
                 self.turn()
             if choises == "2":
                 #ESTO DEBO REVISARLO
-
-                self.baraja.discardDeck()
                 self.turn()
             else:
                 print("Error, a digitado un numero incorrecto.\nElija una opcion del 1-2.")
@@ -156,7 +153,7 @@ class Game:
 
 
 
-class principalMenu():
+class principalMenu:
     def __init__(self):
         print("\nCARD GAME 3 & 2 \nChoose An Option: \n1 -- START. \n2 -- HELP. \n3 -- CLOSE")    
         while True:
