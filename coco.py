@@ -34,13 +34,17 @@ class Deck:
         #Toma la ultima carta de la baraja.
         return self.cards.pop()
 
+    def sendDiscard(self):
+        #toma la ultima carta de baraja de descarte.
+        return self.discard_deck.pop()
+
     def discardDeck(self,currentPlayer): #cree un parametro
-        #Toma la ultima carta de la baraja.
+        #Descartar de la
         return self.discard_deck.append(currentPlayer.discarHandCard())
     
-    def showCards(self):
-        #Llenado de un String con las 5 cartas para imprimir en los datos de cada jugador
-        return self.discard_deck[len(self.discard_deck)-1].information()
+    def showLastCard(self):
+        #Muestra la ultima carta del mazo de descarte.
+        return self.discard_deck[-1].information()
 
 class Players:
     num_player = 1
@@ -48,32 +52,33 @@ class Players:
     def __init__(self):
         self.handCard = []
         self.player()
-        
-        #X(le falta algo)
         Players.num_player += 1
 
     #Llena la baraja de cada jugador 
     def fillHandCard(self, baraja):
         #Llama el objeto baraja 5 veces para llenar la mano
-        print(baraja)
         for i in range(0,5):
-            self.addCard(baraja)
+            AddF = baraja.sendCard()
+            self.handCard.append(AddF)
+            
             
     # def discarHandCard(self):
     #     return self.handCard.pop()
     def discarHandCard(self):
         return self.handCard.pop()
 
-    def addCard(self,baraja):
+    def addCard(self,cardToAdd):
         #Se encarga de agregar una carta a la mano de un jugador 
-        self.handCard.append(baraja.sendCard())
+        # lastCard = cardToAdd.sendCard()
+        self.handCard.append(cardToAdd)
+        return cardToAdd.information()
 
     def showCards(self):
         #Llenado de un String con las 5 cartas para imprimir en los datos de cada jugador
         listCard = ""
         for card in self.handCard:
             listCard += card.information() + " "
-        print (listCard)
+        return (listCard)
 
     
     #Metodo para mostrar los datos de cada jugador
@@ -92,46 +97,68 @@ class Players:
 class Game:
     def __init__(self):
         self.player1 = Players()
+        self.player2 = Players()
         self.baraja = Deck()
         self.baraja.fillDeck()
         self.player1.fillHandCard(self.baraja)
+        self.player2.fillHandCard(self.baraja)
         print(self.player1.show())
-         
-        self.player1.addCard(self.baraja)
-        self.turn()
-        self.choice(self.baraja) #agregado por rita
+        print(self.player2.show())
+       
+        self.cardToAdd = self.baraja.sendCard()
+        print(self.player1.addCard(self.cardToAdd))
+        self.turnOfPlayer = self.player1 
+        # self.turnOfPlayer = self.baraja
+        self.choice(self.baraja) #agregado por rita.
+        
         #X(le falta algo)
+        
         self.winner()
 
     #El metodo choise, se encarga de preguntar al jugador, que carta eligira: una de la baraja o una de la baraja de descarte.
-    def choice(self,barajita):
-        print(barajita.discardDeck(self.player1))
-        print("\nElige una de las opciones: \n1 -- Deseas una carta de la baraja. \n2 -- Deseas una carta de la baraja de descarte.")
+    def choice(self,self.baraja):
+        
         while True:
+            print("\nElige una de las opciones: \n1 -- Deseas una carta de la baraja. \n2 -- Deseas una carta de la baraja de descarte.")
+            print("\nCarta en la baraja de descarte: ", self.baraja.showLastCard())
+            #Cambio de jugador, para los turnos.
+            self.turnOfPlayer = self.player1 if self.turnOfPlayer == self.player2 else self.player2
+            self.turnOfPlayer.show()
             choises = input("ANSWER: ")
-            
-            if choises == "1":
-                
+            if choises == "1": 
+                cardToAdd = self.baraja.sendCard()
+                print (self.turnOfPlayer.addCard(cardToAdd))
                 self.turn()
             if choises == "2":
                 #ESTO DEBO REVISARLO
+                cardToAdd = self.baraja.sendDiscard()
+                # print (self.baraja.discardDeck(cardToAdd))
+                print(self.turnOfPlayer.addCard(cardToAdd))
+                # self.baraja.discardDeck()
                 self.turn()
             else:
                 print("Error, a digitado un numero incorrecto.\nElija una opcion del 1-2.")
 
+            # if num_player == "1":
+            #     return num_player == "2"
+            # else:
+            #     return num_player == "1"
+            
     def turn(self):
+        
         print("\nOpciones de la carta: \nA -- te quedas con la carta \nB -- lanza la misma carta")
         write = input("Answer: ")
         if write == "B":
-            print (self.player1.handCard.pop().information())
+            print (self.turnOfPlayer.handCard.pop().information())
         if write == "A":
-            print (self.player1.showCards())
+            print("")
+            print (self.turnOfPlayer.showCards())
             option = ["0", "1", "2", "3", "4", "5"]
             while True:
                 elige = input("Posicion de carta que deseas cambiar: ")
                 if elige in option:
-                    self.baraja.discard_deck.append(self.player1.handCard.pop(int(elige)))
-                    print(self.baraja.showCards())
+                    self.baraja.discard_deck.append(self.turnOfPlayer.handCard.pop(int(elige)))
+                    print(self.turnOfPlayer.showCards())
                     break
                 else:
                     print("Error, digito un numero incorrecto, debe digitar un numero del 1-5")
@@ -147,10 +174,11 @@ class Game:
         mensaje = "Ganaste"
         for i in Mazodeljugador:
             if Ganador:
-                if i != Ganador[-1]:
+                if i == Ganador[-1]:
                     Ganador.append(i)
                     if len(Ganador) == 2:
                         print(mensaje)
+                   
             else:
                 Ganador.append(i)
         print(Ganador)
