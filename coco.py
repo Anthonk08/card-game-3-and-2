@@ -44,7 +44,7 @@ class Deck:
     
     def showLastCard(self):
         #Muestra la ultima carta del mazo de descarte.
-        return self.discard_deck[-1].information()
+        return self.discard_deck[:-1]
 
 class Players:
     num_player = 1
@@ -109,14 +109,14 @@ class Game:
         print(self.player1.addCard(self.cardToAdd))
         self.turnOfPlayer = self.player1 
         # self.turnOfPlayer = self.baraja
-        self.choice(self.baraja) #agregado por rita.
+        self.choice() #agregado por rita.
         
         #X(le falta algo)
         
         self.winner()
 
     #El metodo choise, se encarga de preguntar al jugador, que carta eligira: una de la baraja o una de la baraja de descarte.
-    def choice(self,self.baraja):
+    def choice(self):
         
         while True:
             print("\nElige una de las opciones: \n1 -- Deseas una carta de la baraja. \n2 -- Deseas una carta de la baraja de descarte.")
