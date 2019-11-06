@@ -96,8 +96,11 @@ class Game:
         self.baraja.fillDeck()
         self.player1.fillHandCard(self.baraja)
         print(self.player1.show())
+         
+        self.player1.addCard(self.baraja)
+        self.turn()
         self.choice(self.baraja) #agregado por rita
-        self.turn() #X(le falta algo)
+        #X(le falta algo)
         self.winner()
 
     #El metodo choise, se encarga de preguntar al jugador, que carta eligira: una de la baraja o una de la baraja de descarte.
@@ -108,6 +111,7 @@ class Game:
             choises = input("ANSWER: ")
             
             if choises == "1":
+                
                 self.turn()
             if choises == "2":
                 #ESTO DEBO REVISARLO
