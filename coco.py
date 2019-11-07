@@ -1,6 +1,8 @@
 import sys
 import random 
 import os
+import colorama 
+from colorama import Fore , Back, Style
 class Card:
 
     #Atributos de la clase card
@@ -11,7 +13,7 @@ class Card:
   
     #Envia las cartas con su valor, color y su simbolo  
     def information(self):
-        return f"{self.value} {self.color} {self.symbol}"   
+        return Fore.CYAN + f"{self.value} {self.color} {self.symbol}"+ Fore.WHITE
 
 class Deck:
     def __init__(self):
@@ -83,7 +85,7 @@ class Players:
     
     #Metodo para mostrar los datos de cada jugador
     def show(self):
-        return f"           {self.player_num} \n--------- ⇥  {self.name} {self.lastName}  ⇤ ---------\n{self.showCards()}"
+        return f"\t  {self.player_num} \n--------- ⇥  {self.name} {self.lastName}  ⇤ ---------\n{self.showCards()}"
 
         #return '{} {} {}'.format(self.name,self.lastName,self.player_num)
 
@@ -128,23 +130,30 @@ class Game:
         """)
         self.choice() #agregado por rita.
         
-        self.winner()
-        
         #X(le falta algo)
-        self.winner()
-        cleanConsole()
+       
+        
 
     #El metodo choise, se encarga de preguntar al jugador, que carta eligira: una de la baraja o una de la baraja de descarte.
     def choice(self):
         
         while True:
-            # cleanConsole()
+            cleanConsole()
+            if self.winner() == True:
+                print("∺∺" *20)
+                print (Fore.GREEN + """
+                \t\t\t --GANASTE--
+                """+ Fore.WHITE) 
+                print("∺∺" *20)
+                break
             print("∸∸∸∸∸∸∸∸" *20)
             print("\nElige una de las opciones: \n1 -- Deseas una carta de la baraja. \n2 -- Deseas una carta de la baraja de descarte.")
             print("\nCarta en la baraja de descarte: ", self.baraja.showLastCard().information())
             #Cambio de jugador, para los turnos.
             self.turnOfPlayer = self.player1 if self.turnOfPlayer == self.player2 else self.player2
+           
             print(self.turnOfPlayer.show())
+            
             print("-----"*10)
             choises = input("ANSWER: ")
             if choises == "1": 
@@ -158,14 +167,17 @@ class Game:
                 print(self.turnOfPlayer.addCard(cardToAdd))
                 # self.baraja.discardDeck()
                 self.turn()
+            
             else:
                 print("Error, a digitado un numero incorrecto.\nElija una opcion del 1-2.")
-
+            
+            
             # if num_player == "1":
             #     return num_player == "2"
             # else:
             #     return num_player == "1"
             
+
     def turn(self):
         
         print("\nOpciones de la carta: \nA -- te quedas con la carta \nB -- lanza la misma carta")
@@ -191,10 +203,10 @@ class Game:
         
 
     def winner(self):
-        #Este metodo verificará si alguno d elos jugadores tiene las cartas necesarias para ganar
-        Mazodeljugador = self.player1.handCard
+        #Este metodo verificará si alguno de los jugadores tiene las cartas necesarias para ganar
+        Mazodeljugador = self.turnOfPlayer.handCard
         # print(Mazodeljugador[0].value)
-        Mazodeljugador.sort()
+        # Mazodeljugador.sort()
         g=[]
         c=[]
         x=0
@@ -204,15 +216,16 @@ class Game:
           if len(g)==0 and len(c)==0:
             g.append(Mazodeljugador[x].value)
             c.append(Mazodeljugador[-(x+1)].value)
-            print (mensaje = "no has ganado")
+            # return False
           else:
             if Mazodeljugador[x].value in g:
               g.append(Mazodeljugador[x].value)
             if Mazodeljugador[-(x+1)].value in c:
               c.append(Mazodeljugador[-(x+1)].value)
             if len(g)==3 and len(c)==2 or len(g)==2 and len(c)==3:
-              print (mensaje)
+              return True   
           x+=1
+        return False
 
     #Metodo que limpia la consola.
 def cleanConsole():
