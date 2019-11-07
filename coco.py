@@ -148,6 +148,7 @@ class Game:
                 """+ Fore.WHITE) 
                 print("∺∺" *20)
                 break
+            
             print("∸∸∸∸∸∸∸∸" *20)
             print("\nChoose one of the options: \n1 -- You want a card from the deck. \n2 -- You want a card from the discard deck.")
             print("\nCard in the discard deck: ", self.baraja.showLastCard().information())
@@ -202,6 +203,7 @@ class Game:
                         break
                     else:
                         print( Fore.RED + "Error, digit an incorrect number, you must enter a number of 0-4" + Fore.WHITE)
+                break
             else:
                 print(Fore.RED +"Error, digit an incorrect character, you must type the letter A or B." +Fore.WHITE)
 
