@@ -153,10 +153,11 @@ class Game:
             if self.winner() == True:
                 print("∺∺" *20)
                 print (Fore.GREEN + """
-                \t\t\t --YOU WIN--
+                \t--YOU WIN--
                 """+ Fore.WHITE) 
                 print("∺∺" *20)
                 break
+            
             print("∸∸∸∸∸∸∸∸" *20)
             print("\nChoose one of the options: \n1 -- You want a card from the deck. \n2 -- You want a card from the discard deck.")
             print("\nCard in the discard deck: ", self.baraja.showLastCard().information())
@@ -167,7 +168,7 @@ class Game:
             choises = input("ANSWER: ") 
             if choises == "1":
                 if len(self.baraja.cards) == 0:
-                    self.shufflingCards()
+                    self.shufflingCards() #agregado 123
 
                 cardToAdd = self.baraja.sendCard()
                 print (self.turnOfPlayer.addCard(cardToAdd))
@@ -196,7 +197,7 @@ class Game:
         
         print("\nOptions of the chart: \nA -- you keep the letter. \nB -- throws the same card.")
         while True:
-            write = input("Answer: ")
+            write = input("Answer: ").upper()
             if write == "B":
                 self.baraja.discard_deck.append(self.turnOfPlayer.handCard.pop())
                 break
@@ -217,6 +218,7 @@ class Game:
                         break
                     else:
                         print( Fore.RED + "Error, digit an incorrect number, you must enter a number of 0-4" + Fore.WHITE)
+                break
             else:
                 print(Fore.RED +"Error, digit an incorrect character, you must type the letter A or B." +Fore.WHITE)
 
@@ -275,7 +277,7 @@ class principalMenu:
                 
                 print("\nA- You want to go back to the menu? \nB- Close the game?")
                 while True:
-                    num2 = input("ANSWER: ")
+                    num2 = input("ANSWER: ").upper()
                     if num2 == "A":
                         principalMenu()
                     if num2 == "B":
