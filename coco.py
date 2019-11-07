@@ -266,7 +266,11 @@ class principalMenu:
                         print("You have entered an incorrect character.\nChoose an A OR B option.")
             if num == "3":
                 #Just present the message that the game is closing and closing.
-                print("The game will close, wait a moment, please.")
+                
+                cleanConsole()
+                print("""
+                ---- The game will close, wait a moment, please. ----
+                """)
                 sys.exit()
 
             else:
