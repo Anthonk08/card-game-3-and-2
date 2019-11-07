@@ -1,6 +1,8 @@
 import sys
 import random 
 import os
+import colorama 
+from colorama import Fore , Back, Style
 class Card:
 
     #Attributes of the class Card
@@ -11,7 +13,7 @@ class Card:
   
     #The information method sends the cards with their value, color and symbol.  
     def information(self):
-        return f"{self.value} {self.color} {self.symbol}"   
+        return Fore.CYAN + f"{self.value} {self.color} {self.symbol}"+ Fore.WHITE
 
 class Deck:
     #Attributes of the class Deck.
@@ -82,16 +84,22 @@ class Players:
     
     #Method for displaying each player’s data.
     def show(self):
-        return f"           {self.player_num} \n--------- ⇥  {self.name} {self.lastName}  ⇤ ---------\n{self.showCards()}"
+        return f"\t  {self.player_num} \n--------- ⇥  {self.name} {self.lastName}  ⇤ ---------\n{self.showCards()}"
 
         #return '{} {} {}'.format(self.name,self.lastName,self.player_num)
 
     #Method that asks for each player’s data.
     def player(self):
-        self.name = input("\nPlayer name: ")
-        self.lastName = input("Player last name: ")
-        self.player_num = f"Player #{Players.num_player}."
-
+        while True:
+            self.name = input("\nPlayer name: ")
+            self.lastName = input("Player last name: ")
+            if self.name == "" or self.lastName == "":
+                print(Fore.RED + "Error, wrong information." + Fore.WHITE)
+            else:
+                self.player_num = f"Player #{Players.num_player}."
+                break
+                
+    
 class Game:
     #Attributes of the class Game and method call of other classes.
     def __init__(self):
@@ -125,20 +133,29 @@ class Game:
         self.winner()
         
         #X(le falta algo)
-        self.winner()
-        cleanConsole()
+       
+        
 
     #The choise method asks the player which card he will choose: a card from the deck or a card from the discard deck.
     def choice(self):
         
         while True:
-            # cleanConsole()
+            cleanConsole()
+            if self.winner() == True:
+                print("∺∺" *20)
+                print (Fore.GREEN + """
+                \t\t\t --YOU WIN--
+                """+ Fore.WHITE) 
+                print("∺∺" *20)
+                break
             print("∸∸∸∸∸∸∸∸" *20)
             print("\nChoose one of the options: \n1 -- You want a card from the deck. \n2 -- You want a card from the discard deck.")
             print("\nCard in the discard deck: ", self.baraja.showLastCard().information())
             #Change of player, for shifts.
             self.turnOfPlayer = self.player1 if self.turnOfPlayer == self.player2 else self.player2
+           
             print(self.turnOfPlayer.show())
+            
             print("-----"*10)
             choises = input("ANSWER: ") 
             if choises == "1": 
@@ -152,35 +169,41 @@ class Game:
                 print(self.turnOfPlayer.addCard(cardToAdd))
                 # self.baraja.discardDeck()
                 self.turn()
+            
             else:
-                print("Error, you’ve entered an incorrect number.\nChoose an option of 1-2.")
+                print(Fore.RED +"Error, you’ve entered an incorrect number.\nChoose an option of 1-2." + Fore.WHITE)
 
             # if num_player == "1":
             #     return num_player == "2"
             # else:
             #     return num_player == "1"
             
+
     def turn(self):
         
         print("\nOptions of the chart: \nA -- you keep the letter. \nB -- throws the same card.")
-        write = input("Answer: ")
-        if write == "B":
-            self.baraja.discard_deck.append(self.turnOfPlayer.handCard.pop())
-            
-        elif write == "A":
-            print("")
-            print ("You have this mallet: " , self.turnOfPlayer.showCards())
-            option = ["0", "1", "2", "3", "4", "5"]
-            while True:
-                elige = input("Card position you want to change: ")
-                if elige in option:
-                    self.baraja.discard_deck.append(self.turnOfPlayer.handCard.pop(int(elige)))
-                    print("--You kept these cards: ", self.turnOfPlayer.showCards())
-                    break
-                else:
-                    print("Error, digit an incorrect number, you must enter a number of 1-5")
-        else:
-            print("Error, digit an incorrect character, you must type the letter A or B.")
+        while True:
+            write = input("Answer: ")
+            if write == "B":
+                self.baraja.discard_deck.append(self.turnOfPlayer.handCard.pop())
+                break
+            elif write == "A":
+                print("")
+                print ("You have this mallet: " , self.turnOfPlayer.showCards())
+                option = ["0", "1", "2", "3", "4"]
+                while True:
+                    elige = input("Card position you want to change: ")
+                    if elige == "5":
+                        print( Fore.RED + "Error, position 5 contains the card to be added." + Fore.WHITE)
+                        elige = input("Card position you want to change: " )
+                    elif elige in option:
+                        self.baraja.discard_deck.append(self.turnOfPlayer.handCard.pop(int(elige)))
+                        print("--You kept these cards: ", self.turnOfPlayer.showCards())
+                        break
+                    else:
+                        print( Fore.RED + "Error, digit an incorrect number, you must enter a number of 0-4" + Fore.WHITE)
+            else:
+                print(Fore.RED +"Error, digit an incorrect character, you must type the letter A or B." +Fore.WHITE)
 
         
 
@@ -188,24 +211,25 @@ class Game:
         #This method will verify if any of the players have the necessary cards to win.
         Mazodeljugador = self.player1.handCard
         # print(Mazodeljugador[0].value)
-        Mazodeljugador.sort()
+        # Mazodeljugador.sort()
         g=[]
         c=[]
         x=0
-        mensaje = "-----YOU WIN------"
-        # Ganador = []
+
         while x < len(Mazodeljugador):
           if len(g)==0 and len(c)==0:
             g.append(Mazodeljugador[x].value)
             c.append(Mazodeljugador[-(x+1)].value)
+            # return False
           else:
             if Mazodeljugador[x].value in g:
               g.append(Mazodeljugador[x].value)
             if Mazodeljugador[-(x+1)].value in c:
               c.append(Mazodeljugador[-(x+1)].value)
             if len(g)==3 and len(c)==2 or len(g)==2 and len(c)==3:
-              print (mensaje)
+              return True   
           x+=1
+        return False
 
 #Function that cleans the console.
 def cleanConsole():
@@ -246,6 +270,6 @@ class principalMenu:
                 sys.exit()
 
             else:
-                print("Error, you’ve entered an incorrect number.\nChoose an option of 1-3.")
+                print(Fore.RED +"Error, you’ve entered an incorrect number.\nChoose an option of 1-3." + Fore.WHITE)
         
 principalMenu()
