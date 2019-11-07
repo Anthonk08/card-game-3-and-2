@@ -3,22 +3,23 @@ import random
 import os
 class Card:
 
-    #Atributos de la clase card
+    #Attributes of the class Card
     def __init__(self,value,color,symbol):
         self.value = value
         self.color = color
         self.symbol = symbol
   
-    #Envia las cartas con su valor, color y su simbolo  
+    #The information method sends the cards with their value, color and symbol.  
     def information(self):
         return f"{self.value} {self.color} {self.symbol}"   
 
 class Deck:
+    #Attributes of the class Deck.
     def __init__(self):
       self.cards = []
       self.discard_deck = []
 
-    #Metodo encargado de llenar la baraja
+    #Method to fill the deck.
     def fillDeck(self):
         card_list = []
         values = ["A","2","3","4","5","6","7","8","9","10","J","Q","K"]
@@ -31,11 +32,11 @@ class Deck:
         
 
     def sendCard(self):
-        #Toma la ultima carta de la baraja.
+        #Take the last card from the DECK.
         return self.cards.pop()
 
     def sendDiscard(self):
-        #toma la ultima carta de baraja de descarte.
+        #Take the last card from DISCARD DECK.
         return self.discard_deck.pop()
 
     def discardDeck(self,currentPlayer): #cree un parametro
@@ -43,82 +44,75 @@ class Deck:
         return self.discard_deck.append(currentPlayer.discarHandCard())
     
     def showLastCard(self):
-        #Muestra la ultima carta del mazo de descarte.
+        #Show the last card of the discard mallet.
         return self.discard_deck[-1]
 
 class Players:
+    #Attributes of the class Players.
     num_player = 1
-    #Creacion de lista handCard y llamada del metodo player
+    #HandCard list creation and player method call.
     def __init__(self):
         self.handCard = []
         self.player()
         Players.num_player += 1
 
-    #Llena la baraja de cada jugador 
+    #Call the item deck 5 times to fill the hand.
     def fillHandCard(self, baraja):
-        #Llama el objeto baraja 5 veces para llenar la mano
+        #Fill each player’s deck. 
         for i in range(0,5):
             AddF = baraja.sendCard()
             self.handCard.append(AddF)
             
-            
-    # def discarHandCard(self):
-    #     return self.handCard.pop()
+
     def discarHandCard(self):
         return self.handCard.pop()
 
     def addCard(self,cardToAdd):
-        #Se encarga de agregar una carta a la mano de un jugador 
-        # lastCard = cardToAdd.sendCard()
+        #Adds a card to a player’s hand.
         self.handCard.append(cardToAdd)
         return cardToAdd.information()
 
     def showCards(self):
-        #Llenado de un String con las 5 cartas para imprimir en los datos de cada jugador
+        #Filling a String with the 5 cards to print on each player’s data.
         listCard = ""
         for card in self.handCard:
             listCard += card.information() + " "
         return (listCard)
 
     
-    #Metodo para mostrar los datos de cada jugador
+    #Method for displaying each player’s data.
     def show(self):
         return f"           {self.player_num} \n--------- ⇥  {self.name} {self.lastName}  ⇤ ---------\n{self.showCards()}"
 
         #return '{} {} {}'.format(self.name,self.lastName,self.player_num)
 
-    #Metodo que pide los datos de cada jugador
+    #Method that asks for each player’s data.
     def player(self):
         self.name = input("\nPlayer name: ")
         self.lastName = input("Player last name: ")
         self.player_num = f"Player #{Players.num_player}."
-        #Esto es un ejemplo.
-        # a = f"Diga su nombre, por favor :v{self.name}"
 
 class Game:
+    #Attributes of the class Game and method call of other classes.
     def __init__(self):
-        
+        #cleanConsole used to clean the console.
         cleanConsole()
-        print("---"*32) #diseno
+        print("---"*32) #design
         self.player1 = Players()
-        print("---"*32) #diseno
+        print("---"*32) #design
         cleanConsole()
         print("---"*32)
         self.player2 = Players()
         print("---"*32)
         print("---"*32)
-        
         self.baraja = Deck()
         self.baraja.fillDeck()
         self.player1.fillHandCard(self.baraja)
         self.player2.fillHandCard(self.baraja)
         cleanConsole()
         print(self.player1.show())
-        
-        
         print("---"*32)
         self.cardToAdd = self.baraja.sendCard()
-       
         print("Nueva Carta Agregada: ",self.player1.addCard(self.cardToAdd))
         self.turnOfPlayer = self.player1
         # self.turnOfPlayer = self.baraja
@@ -126,27 +120,27 @@ class Game:
         print("""
         
         """)
-        self.choice() #agregado por rita.
-        
+        self.choice() 
+
         self.winner()
         
         #X(le falta algo)
         self.winner()
         cleanConsole()
 
-    #El metodo choise, se encarga de preguntar al jugador, que carta eligira: una de la baraja o una de la baraja de descarte.
+    #The choise method asks the player which card he will choose: a card from the deck or a card from the discard deck.
     def choice(self):
         
         while True:
             # cleanConsole()
             print("∸∸∸∸∸∸∸∸" *20)
-            print("\nElige una de las opciones: \n1 -- Deseas una carta de la baraja. \n2 -- Deseas una carta de la baraja de descarte.")
-            print("\nCarta en la baraja de descarte: ", self.baraja.showLastCard().information())
-            #Cambio de jugador, para los turnos.
+            print("\nChoose one of the options: \n1 -- You want a card from the deck. \n2 -- You want a card from the discard deck.")
+            print("\nCard in the discard deck: ", self.baraja.showLastCard().information())
+            #Change of player, for shifts.
             self.turnOfPlayer = self.player1 if self.turnOfPlayer == self.player2 else self.player2
             print(self.turnOfPlayer.show())
             print("-----"*10)
-            choises = input("ANSWER: ")
+            choises = input("ANSWER: ") 
             if choises == "1": 
                 cardToAdd = self.baraja.sendCard()
                 print (self.turnOfPlayer.addCard(cardToAdd))
@@ -159,7 +153,7 @@ class Game:
                 # self.baraja.discardDeck()
                 self.turn()
             else:
-                print("Error, a digitado un numero incorrecto.\nElija una opcion del 1-2.")
+                print("Error, you’ve entered an incorrect number.\nChoose an option of 1-2.")
 
             # if num_player == "1":
             #     return num_player == "2"
@@ -168,37 +162,37 @@ class Game:
             
     def turn(self):
         
-        print("\nOpciones de la carta: \nA -- te quedas con la carta \nB -- lanza la misma carta")
+        print("\nOptions of the chart: \nA -- you keep the letter. \nB -- throws the same card.")
         write = input("Answer: ")
         if write == "B":
             self.baraja.discard_deck.append(self.turnOfPlayer.handCard.pop())
             
         elif write == "A":
             print("")
-            print ("Tienes este mazo: " , self.turnOfPlayer.showCards())
+            print ("You have this mallet: " , self.turnOfPlayer.showCards())
             option = ["0", "1", "2", "3", "4", "5"]
             while True:
-                elige = input("Posicion de carta que deseas cambiar: ")
+                elige = input("Card position you want to change: ")
                 if elige in option:
                     self.baraja.discard_deck.append(self.turnOfPlayer.handCard.pop(int(elige)))
-                    print("--Te has quedado con estas cartas: ", self.turnOfPlayer.showCards())
+                    print("--You kept these cards: ", self.turnOfPlayer.showCards())
                     break
                 else:
-                    print("Error, digito un numero incorrecto, debe digitar un numero del 1-5")
+                    print("Error, digit an incorrect number, you must enter a number of 1-5")
         else:
-            print("Error, digito un caracter incorrecto, debe digitar la letra A o B")
+            print("Error, digit an incorrect character, you must type the letter A or B.")
 
         
 
     def winner(self):
-        #Este metodo verificará si alguno d elos jugadores tiene las cartas necesarias para ganar
+        #This method will verify if any of the players have the necessary cards to win.
         Mazodeljugador = self.player1.handCard
         # print(Mazodeljugador[0].value)
         Mazodeljugador.sort()
         g=[]
         c=[]
         x=0
-        mensaje = "-----Ganaste------"
+        mensaje = "-----YOU WIN------"
         # Ganador = []
         while x < len(Mazodeljugador):
           if len(g)==0 and len(c)==0:
@@ -214,7 +208,7 @@ class Game:
               print (mensaje)
           x+=1
 
-    #Metodo que limpia la consola.
+#Function that cleans the console.
 def cleanConsole():
     clear = lambda: os.system("cls")
     clear()
@@ -228,16 +222,16 @@ class principalMenu:
             num = input("ANSWER: ") 
 
             if num == "1":
-                #Aqui debe iniciar el juego, llamando a la clase Players.
+                #Here you must start the game by calling the Players class.
                 self.playGame = Game()
                 break
 
 
             if num == "2":
-                #Despues de leer debe regresar al principio del menu.
-                print("\nCOMO JUGAR.\n1-Ingresa tu nombre.\n2-Ingresa tu apellido.\n3-Apareceran varias a opciones a elegir cada vez que sea su turno.\n4-Tendras la opcion de quedarte con una carta de la baraja y cambiarla por una de tu mano o descartar la carta de la baraja.\n5-En caso de que elijas cambiar la carta de la baraja, por una de la mano, aparecera tu mano:\n\t[7 Black Peak, 6 Black Peak, A Red Diamond, 2 Black Peak, 4 Black Peak]\n6-Debes elegir entre las 5 cartas que tienes, cual deseas cambiar, digitando un la posicion de una de las cartas del 0-4.\n7-Ganará aquel que tenga 2 cartas iguales de una y tres cartas iguales de otra.")
+                #After reading must return to the top of the menu.
+                print("\nHOW TO PLAY IT?\n1-Enter your name.\n2-Enter your last name.\n3-Several options will appear to be chosen each time it is your turn.\n4-You will have the option to keep a card from the deck and exchange it for one of your hand or discard the card from the deck.\n5-If you choose to change the card in the deck to one in the hand, your hand will appear:\n\t[7 Black Peak, 6 Black Peak, A Red Diamond, 2 Black Peak, 4 Black Peak]\n6-You must choose between the 5 cards you have, which you want to change, by typing a position of one of the 0-4 cards.\n7-He who has two equal cards of one and three equal cards of another will win.")
                 
-                print("\nA- Quieres regresar al menu? \nB- Cerrar el juego?")
+                print("\nA- You want to go back to the menu? \nB- Close the game?")
                 while True:
                     num2 = input("ANSWER: ")
                     if num2 == "A":
@@ -246,16 +240,13 @@ class principalMenu:
                         print("The game will close, wait a moment, please.")
                         sys.exit()
                     else:
-                        print("Ha digitado un caracter incorrecto.\nElija una opcion del A OR B.")
+                        print("You have entered an incorrect character.\nChoose an A OR B option.")
             if num == "3":
-                #Solo presenta el mensaje de que el juego esta cerrando y se cierra.
+                #Just present the message that the game is closing and closing.
                 print("The game will close, wait a moment, please.")
                 sys.exit()
 
             else:
-                print("Error, a digitado un numero incorrecto.\nElija una opcion del 1-3.")
+                print("Error, you’ve entered an incorrect number.\nChoose an option of 1-3.")
         
-
 principalMenu()
-# baraja = Players()
-# Deck()
