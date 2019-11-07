@@ -48,10 +48,10 @@ class Deck:
         return self.discard_deck[-1]
 
 class Players:
-    #Attributes of the class Players.
     num_player = 1
-    #HandCard list creation and player method call.
     def __init__(self):
+        #Attributes of the class Players.
+        #HandCard list creation and player method call.
         self.handCard = []
         self.player()
         Players.num_player += 1
@@ -113,7 +113,7 @@ class Game:
         print(self.player1.show())
         print("---"*32)
         self.cardToAdd = self.baraja.sendCard()
-        print("Nueva Carta Agregada: ",self.player1.addCard(self.cardToAdd))
+        print("New Letter Added: ",self.player1.addCard(self.cardToAdd))
         self.turnOfPlayer = self.player1
         # self.turnOfPlayer = self.baraja
         self.turn()
@@ -198,7 +198,6 @@ class Game:
           if len(g)==0 and len(c)==0:
             g.append(Mazodeljugador[x].value)
             c.append(Mazodeljugador[-(x+1)].value)
-            print (mensaje = "no has ganado")
           else:
             if Mazodeljugador[x].value in g:
               g.append(Mazodeljugador[x].value)
