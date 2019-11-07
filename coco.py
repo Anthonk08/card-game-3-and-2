@@ -83,7 +83,7 @@ class Players:
     
     #Metodo para mostrar los datos de cada jugador
     def show(self):
-        return f"{self.player_num} \n{self.name}  {self.lastName} \n{self.showCards()}"
+        return f"        {self.player_num} \n--------- ⇥  {self.name} {self.lastName}  ⇤ ---------\n{self.showCards()}"
 
         #return '{} {} {}'.format(self.name,self.lastName,self.player_num)
 
@@ -97,37 +97,56 @@ class Players:
 
 class Game:
     def __init__(self):
+    
         cleanConsole()
+        print("---"*32) #diseno
         self.player1 = Players()
+        print("---"*32) #diseno
         cleanConsole()
+        print("---"*32)
         self.player2 = Players()
+        print("---"*32)
+        print("---"*32)
+        
         self.baraja = Deck()
         self.baraja.fillDeck()
         self.player1.fillHandCard(self.baraja)
         self.player2.fillHandCard(self.baraja)
-        print(self.player1.show())
-        self.cardToAdd = self.baraja.sendCard()
-        print(self.player1.addCard(self.cardToAdd))
-        self.turnOfPlayer = self.player1 
-        # self.turnOfPlayer = self.baraja
         cleanConsole()
+        print(self.player1.show())
+        
+        print("---"*32)
+        self.cardToAdd = self.baraja.sendCard()
+       
+        print("Nueva Carta Agregada: ",self.player1.addCard(self.cardToAdd))
+        
+        self.turnOfPlayer = self.player1
+        
+        # self.turnOfPlayer = self.baraja
+        
         self.turn()
+        print("""
+        
+        """)
         self.choice() #agregado por rita.
+        self.winner()
         
         #X(le falta algo)
         
-        self.winner()
+        cleanConsole()
 
     #El metodo choise, se encarga de preguntar al jugador, que carta eligira: una de la baraja o una de la baraja de descarte.
     def choice(self):
         
         while True:
-            cleanConsole()
+            # cleanConsole()
+            print("∸∸∸∸∸∸" *20)
             print("\nElige una de las opciones: \n1 -- Deseas una carta de la baraja. \n2 -- Deseas una carta de la baraja de descarte.")
             print("\nCarta en la baraja de descarte: ", self.baraja.showLastCard().information())
             #Cambio de jugador, para los turnos.
             self.turnOfPlayer = self.player1 if self.turnOfPlayer == self.player2 else self.player2
             print(self.turnOfPlayer.show())
+            print("----"*10)
             choises = input("ANSWER: ")
             if choises == "1": 
                 cardToAdd = self.baraja.sendCard()
@@ -154,15 +173,16 @@ class Game:
         write = input("Answer: ")
         if write == "B":
             self.baraja.discard_deck.append(self.turnOfPlayer.handCard.pop())
+            
         elif write == "A":
             print("")
-            print (self.turnOfPlayer.showCards())
+            print ("Tines este mazo: " , self.turnOfPlayer.showCards())
             option = ["0", "1", "2", "3", "4", "5"]
             while True:
                 elige = input("Posicion de carta que deseas cambiar: ")
                 if elige in option:
                     self.baraja.discard_deck.append(self.turnOfPlayer.handCard.pop(int(elige)))
-                    print(self.turnOfPlayer.showCards())
+                    print("--Te has quedado con estas cartas: ", self.turnOfPlayer.showCards())
                     break
                 else:
                     print("Error, digito un numero incorrecto, debe digitar un numero del 1-5")
@@ -174,18 +194,26 @@ class Game:
     def winner(self):
         #Este metodo verificará si alguno d elos jugadores tiene las cartas necesarias para ganar
         Mazodeljugador = self.player1.handCard
-        Ganador = []
+        print(Mazodeljugador)
+        Mazodeljugador.sort()
+        g=[]
+        c=[]
+        x=0
         mensaje = "Ganaste"
-        for i in Mazodeljugador:
-            if Ganador:
-                if i == Ganador[-1]:
-                    Ganador.append(i)
-                    if len(Ganador) == 2:
-                        print(mensaje)
-                   
-            else:
-                Ganador.append(i)
-        print(Ganador)
+        # Ganador = []
+        while x < len(Mazodeljugador):
+          if len(g)==0 and len(c)==0:
+            g.append(Mazodeljugador[x])
+            c.append(Mazodeljugador[-(x+1)])
+            print (mensaje = "no has ganado")
+          else:
+            if Mazodeljugador[x] in g:
+              g.append(Mazodeljugador[x])
+            if Mazodeljugador[-(x+1)] in c:
+              c.append(Mazodeljugador[-(x+1)])
+            if len(g)==3 and len(c)==2 or len(g)==2 and len(c)==3:
+              print (mensaje)
+          x+=1
 
     #Metodo que limpia la consola.
 def cleanConsole():
