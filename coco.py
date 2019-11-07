@@ -80,6 +80,7 @@ class Players:
         for card in self.handCard:
             listCard += card.information() + " "
         return (listCard)
+        
 
     
     #Method for displaying each player’s data.
@@ -134,7 +135,15 @@ class Game:
         
         #X(le falta algo)
        
-        
+    def changeTurnOfPlayer(self):
+        #Change of player, for shifts.
+        self.turnOfPlayer = self.player1 if self.turnOfPlayer == self.player2 else self.player2  
+
+    def shufflingCards(self):
+        self.baraja.cards = self.baraja.discard_deck[:-1]
+        auxVariable = self.baraja.discard_deck[-1]
+        self.baraja.discard_deck = auxVariable
+        random.shuffle(self.baraja.cards)
 
     #The choise method asks the player which card he will choose: a card from the deck or a card from the discard deck.
     def choice(self):
@@ -151,17 +160,19 @@ class Game:
             print("∸∸∸∸∸∸∸∸" *20)
             print("\nChoose one of the options: \n1 -- You want a card from the deck. \n2 -- You want a card from the discard deck.")
             print("\nCard in the discard deck: ", self.baraja.showLastCard().information())
-            #Change of player, for shifts.
-            self.turnOfPlayer = self.player1 if self.turnOfPlayer == self.player2 else self.player2
            
             print(self.turnOfPlayer.show())
             
             print("-----"*10)
             choises = input("ANSWER: ") 
-            if choises == "1": 
+            if choises == "1":
+                if len(self.baraja.cards) == 0:
+                    self.shufflingCards()
+
                 cardToAdd = self.baraja.sendCard()
                 print (self.turnOfPlayer.addCard(cardToAdd))
                 self.turn()
+                self.changeTurnOfPlayer()
             elif choises == "2":
                 #ESTO DEBO REVISARLO
                 cardToAdd = self.baraja.sendDiscard()
@@ -169,6 +180,8 @@ class Game:
                 print(self.turnOfPlayer.addCard(cardToAdd))
                 # self.baraja.discardDeck()
                 self.turn()
+                self.changeTurnOfPlayer()
+
             
             else:
                 print(Fore.RED +"Error, you’ve entered an incorrect number.\nChoose an option of 1-2." + Fore.WHITE)
@@ -189,7 +202,8 @@ class Game:
                 break
             elif write == "A":
                 print("")
-                print ("You have this mallet: " , self.turnOfPlayer.showCards())
+                # \n ------ [0]-------- [1] --------- [2] --------- [3] ---------- [4]
+                print ("You have this mallet: ", self.turnOfPlayer.showCards())
                 option = ["0", "1", "2", "3", "4"]
                 while True:
                     elige = input("Card position you want to change: ")
@@ -199,6 +213,7 @@ class Game:
                     elif elige in option:
                         self.baraja.discard_deck.append(self.turnOfPlayer.handCard.pop(int(elige)))
                         print("--You kept these cards: ", self.turnOfPlayer.showCards())
+                        # print("[0]----[1]----[2]----[3]----[4]")
                         break
                     else:
                         print( Fore.RED + "Error, digit an incorrect number, you must enter a number of 0-4" + Fore.WHITE)
@@ -240,9 +255,13 @@ def cleanConsole():
 class principalMenu:
     def __init__(self):
         cleanConsole()
-        print("\nCARD GAME 3 & 2 \nChoose An Option: \n1 -- START. \n2 -- HELP. \n3 -- CLOSE")    
+        print("""
+
+        \n\t\t\tCARD GAME 3 & 2 \n\t\t\tChoose An Option: \n\t\t\t1 -- START. \n\t\t\t2 -- HELP. \n\t\t\t3 -- CLOSE
+        
+        """)    
         while True:
-            num = input("ANSWER: ") 
+            num = input("\t\t\tANSWER: ") 
 
             if num == "1":
                 #Here you must start the game by calling the Players class.
