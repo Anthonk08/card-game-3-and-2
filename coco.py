@@ -144,7 +144,7 @@ class Game:
             if self.winner() == True:
                 print("∺∺" *20)
                 print (Fore.GREEN + """
-                \t\t\t --YOU WIN--
+                \t--YOU WIN--
                 """+ Fore.WHITE) 
                 print("∺∺" *20)
                 break
@@ -154,11 +154,11 @@ class Game:
             print("\nCard in the discard deck: ", self.baraja.showLastCard().information())
             #Change of player, for shifts.
             self.turnOfPlayer = self.player1 if self.turnOfPlayer == self.player2 else self.player2
-           
+            #
             print(self.turnOfPlayer.show())
             
             print("-----"*10)
-            choises = input("ANSWER: ") 
+            choises = input("ANSWER: ").upper() 
             if choises == "1": 
                 cardToAdd = self.baraja.sendCard()
                 print (self.turnOfPlayer.addCard(cardToAdd))
@@ -184,7 +184,7 @@ class Game:
         
         print("\nOptions of the chart: \nA -- you keep the letter. \nB -- throws the same card.")
         while True:
-            write = input("Answer: ")
+            write = input("Answer: ").upper()
             if write == "B":
                 self.baraja.discard_deck.append(self.turnOfPlayer.handCard.pop())
                 break
