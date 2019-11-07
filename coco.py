@@ -142,7 +142,7 @@ class Game:
     def shufflingCards(self):
         self.baraja.cards = self.baraja.discard_deck[:-1]
         auxVariable = self.baraja.discard_deck[-1]
-        self.baraja.discard_deck = auxVariable
+        self.baraja.discard_deck = [auxVariable]
         random.shuffle(self.baraja.cards)
 
     #The choise method asks the player which card he will choose: a card from the deck or a card from the discard deck.
@@ -202,9 +202,14 @@ class Game:
                 self.baraja.discard_deck.append(self.turnOfPlayer.handCard.pop())
                 break
             elif write == "A":
+                
                 print("")
+                print ("-----" *10)
                 # \n ------ [0]-------- [1] --------- [2] --------- [3] ---------- [4]
-                print ("You have this mallet: ", self.turnOfPlayer.showCards())
+                print ("You have this mallet: \n", self.turnOfPlayer.showCards())
+                print(" ----- [0] -------- [1] -------- [2] -------- [3] -------- [4]")
+                
+
                 option = ["0", "1", "2", "3", "4"]
                 while True:
                     elige = input("Card position you want to change: ")
@@ -214,7 +219,7 @@ class Game:
                     elif elige in option:
                         self.baraja.discard_deck.append(self.turnOfPlayer.handCard.pop(int(elige)))
                         print("--You kept these cards: ", self.turnOfPlayer.showCards())
-                        # print("[0]----[1]----[2]----[3]----[4]")
+                        # print("---- [0] ---- [1] ---- [2] ---- [3] ----[4]")
                         break
                     else:
                         print( Fore.RED + "Error, digit an incorrect number, you must enter a number of 0-4" + Fore.WHITE)
