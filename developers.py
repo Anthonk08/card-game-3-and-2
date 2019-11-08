@@ -88,7 +88,7 @@ class Players:
     
     #Method for displaying each player’s data.
     def show(self):
-        return f"\t   {self.player_num} \n--------- ⇥  {self.name} {self.lastName}  ⇤ ---------\n{self.showCards()}"
+        return f"\t\t\t\t\t    {self.player_num} \n------------------------------------------ ⇥  {self.name} {self.lastName}  ⇤ ----------------------------------------------------------\n{self.showCards()}"
 
         #return '{} {} {}'.format(self.name,self.lastName,self.player_num)
 
@@ -109,14 +109,14 @@ class Game:
     def __init__(self):
         #cleanConsole used to clean the console.
         cleanConsole()
-        print("---"*32) #design
+        print("---"*37) #design
         self.player1 = Players()
-        print("---"*32) #design
+        print("---"*37) #design
         time.sleep(0.4)
         cleanConsole()
-        print("---"*32)
+        print("---"*37)
         self.player2 = Players()
-        print("---"*32)
+        print("---"*37)
         time.sleep(0.4)
         self.baraja = Deck()
         self.baraja.fillDeck()
@@ -124,7 +124,7 @@ class Game:
         self.player2.fillHandCard(self.baraja)
         cleanConsole()
         print(self.player1.show())
-        print("---"*32)
+        print("---"*37)
         
         self.cardToAdd = self.baraja.sendCard()
         print("New Letter Added: ",self.player1.addCard(self.cardToAdd))
@@ -135,7 +135,7 @@ class Game:
         
         """)
         self.choice() 
-
+        
         # self.winner()
         
         #X(le falta algo)
@@ -154,25 +154,17 @@ class Game:
     def choice(self):
         self.changeTurnOfPlayer()
         while True:
-            cleanConsole()
-            # if self.winner() == True:
-            #     print("∺∺∺∺" *20)
-            #     print (Fore.GREEN + """
-            #     \t--Y O U  W I N--
-            #     """+ Fore.WHITE) 
-            #     print("∺∺∺∺" *20)
-            #     break
-
-            print("∸∸∸∸∸∸∸∸" *20)
+            # cleanConsole()
+            print("∸∸∸" *37)
             print("\nChoose one of the options: \n1 -- You want a card from the deck. \n2 -- You want a card from the discard deck.")
             print("\nCard in the discard deck: ", self.baraja.showLastCard().information())
-           
             print(self.turnOfPlayer.show())
+            print("---"*37)
             
-            print("-----"*10)
             choises = input("ANSWER: ") 
             if choises == "1" or choises == "2":
                 if choises == "1":
+                    #In this If is checked if the deck is left empty, the discard deck is shuffled and the cards are added back to the deck.
                     if len(self.baraja.cards) == 0:
                         self.shufflingCards() #agregado 123
 
@@ -183,9 +175,7 @@ class Game:
                 elif choises == "2":
                     #ESTO DEBO REVISARLO
                     cardToAdd = self.baraja.sendDiscard()
-                    # print (self.baraja.discardDeck(cardToAdd))
                     print(self.turnOfPlayer.addCard(cardToAdd))
-                    # self.baraja.discardDeck()
                     self.turn()
                     
                 if self.winner() == True:
@@ -193,21 +183,16 @@ class Game:
                     print("∺∺∺∺∺" *22)
                     print (Fore.GREEN + """
                     \t\t\t--- Y O U  W I N ---
-                    """+ Fore.WHITE) 
+                    """ + Fore.WHITE) 
                     print("∺∺∺∺∺" *22)
                     break
-                
+                cleanConsole()
                 #Changes players turn
                 self.changeTurnOfPlayer()
 
             
             else:
                 print(Fore.RED +"Error, you’ve entered an incorrect number.\nChoose an option of 1-2." + Fore.WHITE)
-
-            # if num_player == "1":
-            #     return num_player == "2"
-            # else:
-            #     return num_player == "1"
             
 
     def turn(self):
@@ -219,12 +204,10 @@ class Game:
                 self.baraja.discard_deck.append(self.turnOfPlayer.handCard.pop())
                 break
             elif write == "A":
-                
                 print("")
-                print ("-----" *10)
-                # \n ------ [0]-------- [1] --------- [2] --------- [3] ---------- [4]
+                print ("---" *37)
                 print ("You have this mallet: \n", self.turnOfPlayer.showCards())
-                print(" -------- [0] ----------- [1] ------------- [2] ---------------- [3] --------------- [4] ------------ *CARD ADDED* ------")
+                print(" -------- [0] ----------- [1] ------------- [2] ---------------- [3] --------------- [4] ------------ *CARD ADDED*-")
                 
 
                 option = ["0", "1", "2", "3", "4"]
@@ -235,7 +218,7 @@ class Game:
                         elige = input("Card position you want to change: " )
                     elif elige in option:
                         self.baraja.discard_deck.append(self.turnOfPlayer.handCard.pop(int(elige)))
-                        print("--You kept these cards: ", self.turnOfPlayer.showCards())
+                        print("You kept these cards: ", self.turnOfPlayer.showCards())
                         # print("----- [0] ---- [1] ---- [2] ---- [3] ----[4] ")
                         break
                     else:
@@ -249,23 +232,19 @@ class Game:
     def winner(self):
         #This method will verify if any of the players have the necessary cards to win.
         Mazodeljugador = self.turnOfPlayer.handCard
-        # print(Mazodeljugador[0].value)
-        # Mazodeljugador.sort()
         g=[]
         c=[]
         x=0
-
         while x < len(Mazodeljugador):
           if len(g)==0 and len(c)==0:
             g.append(Mazodeljugador[x].value)
             c.append(Mazodeljugador[-(x+1)].value)
-            # return False
           else:
             if Mazodeljugador[x].value in g:
               g.append(Mazodeljugador[x].value)
             if Mazodeljugador[-(x+1)].value in c:
               c.append(Mazodeljugador[-(x+1)].value)
-            if len(g)==3 and len(c)==2 or len(g)==2 and len(c)==3:
+            if (len(g)==3 and len(c)==2) or (len(g)==2 and len(c)==3):
               return True   
           x+=1
         return False
