@@ -231,7 +231,7 @@ class Game:
 
     def winner(self):
         #This method will verify if any of the players have the necessary cards to win.
-        Mazodeljugador = self.player1.handCard
+        Mazodeljugador = self.turnOfPlayer.handCard
         # print(Mazodeljugador[0].value)
         # Mazodeljugador.sort()
         g=[]
