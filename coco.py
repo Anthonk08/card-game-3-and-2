@@ -2,9 +2,10 @@ import sys
 import random 
 import os
 import colorama 
-from colorama import Fore , Back, Style
-class Card:
+from colorama import Fore
 
+
+class Card:
     #Attributes of the class Card
     def __init__(self,value,color,symbol):
         self.value = value
@@ -25,8 +26,8 @@ class Deck:
     def fillDeck(self):
         card_list = []
         values = ["A","2","3","4","5","6","7","8","9","10","J","Q","K"]
-        symbols = [["Red","Heart"],["Red","Diamond"],["Black","Clover"],["Black","Peak"]]
-        # symbols = [["Red","Heart |♥|"],["Red","Diamond |♦|"],["Black","Clover |♣|"],["Black","Peak |♠|"]]
+        # symbols = [["Red","Heart"],["Red","Diamond"],["Black","Clover"],["Black","Peak"]]♥ ♦ ♣ ♠
+        symbols = [["Red","Heart |♥|"],["Red","Diamond |♦|"],["Black","Clover |♣|"],["Black","Peak |♠|"]]
        
         for s in symbols:
             for v in values:
@@ -87,22 +88,22 @@ class Players:
     
     #Method for displaying each player’s data.
     def show(self):
-        return f"\t  {self.player_num} \n--------- ⇥  {self.name} {self.lastName}  ⇤ ---------\n{self.showCards()}"
+        return f"\t   {self.player_num} \n--------- ⇥  {self.name} {self.lastName}  ⇤ ---------\n{self.showCards()}"
 
         #return '{} {} {}'.format(self.name,self.lastName,self.player_num)
 
     #Method that asks for each player’s data.
     def player(self):
         while True:
-            self.name = input("\nPlayer name: ")
-            self.lastName = input("Player last name: ")
+            self.name = input("\n\t\t\t\tPlayer name: ")
+            self.lastName = input("\t\t\t\tPlayer last name: ")
             if self.name == "" or self.lastName == "":
-                print(Fore.RED + "Error, wrong information." + Fore.WHITE)
+                print(Fore.RED + "\t\t\t\tError, wrong information." + Fore.WHITE)
             else:
                 self.player_num = f"Player #{Players.num_player}."
                 break
                 
-    
+import time
 class Game:
     #Attributes of the class Game and method call of other classes.
     def __init__(self):
@@ -111,11 +112,12 @@ class Game:
         print("---"*32) #design
         self.player1 = Players()
         print("---"*32) #design
+        time.sleep(0.4)
         cleanConsole()
         print("---"*32)
         self.player2 = Players()
         print("---"*32)
-        print("---"*32)
+        time.sleep(0.4)
         self.baraja = Deck()
         self.baraja.fillDeck()
         self.player1.fillHandCard(self.baraja)
@@ -123,6 +125,7 @@ class Game:
         cleanConsole()
         print(self.player1.show())
         print("---"*32)
+        
         self.cardToAdd = self.baraja.sendCard()
         print("New Letter Added: ",self.player1.addCard(self.cardToAdd))
         self.turnOfPlayer = self.player1
@@ -133,7 +136,7 @@ class Game:
         """)
         self.choice() 
 
-        self.winner()
+        # self.winner()
         
         #X(le falta algo)
        
@@ -149,17 +152,17 @@ class Game:
 
     #The choise method asks the player which card he will choose: a card from the deck or a card from the discard deck.
     def choice(self):
-        
+        self.changeTurnOfPlayer()
         while True:
             cleanConsole()
-            if self.winner() == True:
-                print("∺∺∺∺" *20)
-                print (Fore.GREEN + """
-                \t--Y O U  W I N--
-                """+ Fore.WHITE) 
-                print("∺∺∺∺" *20)
-                break
-            
+            # if self.winner() == True:
+            #     print("∺∺∺∺" *20)
+            #     print (Fore.GREEN + """
+            #     \t--Y O U  W I N--
+            #     """+ Fore.WHITE) 
+            #     print("∺∺∺∺" *20)
+            #     break
+
             print("∸∸∸∸∸∸∸∸" *20)
             print("\nChoose one of the options: \n1 -- You want a card from the deck. \n2 -- You want a card from the discard deck.")
             print("\nCard in the discard deck: ", self.baraja.showLastCard().information())
@@ -168,21 +171,33 @@ class Game:
             
             print("-----"*10)
             choises = input("ANSWER: ") 
-            if choises == "1":
-                if len(self.baraja.cards) == 0:
-                    self.shufflingCards() #agregado 123
+            if choises == "1" or choises == "2":
+                if choises == "1":
+                    if len(self.baraja.cards) == 0:
+                        self.shufflingCards() #agregado 123
 
-                cardToAdd = self.baraja.sendCard()
-                print (self.turnOfPlayer.addCard(cardToAdd))
-                self.turn()
-                self.changeTurnOfPlayer()
-            elif choises == "2":
-                #ESTO DEBO REVISARLO
-                cardToAdd = self.baraja.sendDiscard()
-                # print (self.baraja.discardDeck(cardToAdd))
-                print(self.turnOfPlayer.addCard(cardToAdd))
-                # self.baraja.discardDeck()
-                self.turn()
+                    cardToAdd = self.baraja.sendCard()
+                    print (self.turnOfPlayer.addCard(cardToAdd))
+                    self.turn()  
+                    
+                elif choises == "2":
+                    #ESTO DEBO REVISARLO
+                    cardToAdd = self.baraja.sendDiscard()
+                    # print (self.baraja.discardDeck(cardToAdd))
+                    print(self.turnOfPlayer.addCard(cardToAdd))
+                    # self.baraja.discardDeck()
+                    self.turn()
+                    
+                if self.winner() == True:
+                    cleanConsole()
+                    print("∺∺∺∺∺" *22)
+                    print (Fore.GREEN + """
+                    \t\t\t--- Y O U  W I N ---
+                    """+ Fore.WHITE) 
+                    print("∺∺∺∺∺" *22)
+                    break
+                
+                #Changes players turn
                 self.changeTurnOfPlayer()
 
             
@@ -209,7 +224,7 @@ class Game:
                 print ("-----" *10)
                 # \n ------ [0]-------- [1] --------- [2] --------- [3] ---------- [4]
                 print ("You have this mallet: \n", self.turnOfPlayer.showCards())
-                print(" ------ [0] ------------- [1] -------------- [2] ------------- [3] ------------- [4] -------- *CARD ADDED* ---")
+                print(" -------- [0] ----------- [1] ------------- [2] ---------------- [3] --------------- [4] ------------ *CARD ADDED* ------")
                 
 
                 option = ["0", "1", "2", "3", "4"]
@@ -264,11 +279,17 @@ def cleanConsole():
 class principalMenu:
     def __init__(self):
         cleanConsole()
-        print("""
-        \nCARD GAME 3 & 2 \nChoose An Option: \n1 -- START. \n2 -- HELP. \n3 -- CLOSE
-        """)    
+        
+        print(Fore.RED + "\n\t\t\t" + " ♥  ♦  ♣  ♠  "*4 , Fore.WHITE)
+        print(Fore.GREEN + """
+        \t\t\t    C A R D  G A M E  3  &  2 
+        """ +Fore.WHITE)
+        print(Fore.RED + "\t\t\t" + " ♥  ♦  ♣  ♠  "*4 , Fore.WHITE)
+        print ("""\n\t\t\t\tC h o o s e   A n   O p t i o n : \n\n\t\t\t\t\t1 -- START. \n\n\t\t\t\t\t2 -- HELP. \n\n\t\t\t\t\t3 -- CLOSE
+        """)
+        
         while True:
-            num = input("\t\t\tANSWER: ") 
+            num = input("\t\t\t\tA N S W E R : ") 
 
             if num == "1":
                 #Here you must start the game by calling the Players class.
@@ -278,15 +299,22 @@ class principalMenu:
 
             if num == "2":
                 #After reading must return to the top of the menu.
-                print("\nHOW TO PLAY IT?\n1-Enter your name.\n2-Enter your last name.\n3-Several options will appear to be chosen each time it is your turn.\n4-You will have the option to keep a card from the deck and exchange it for one of your hand or discard the card from the deck.\n5-If you choose to change the card in the deck to one in the hand, your hand will appear:\n\t[7 Black Peak, 6 Black Peak, A Red Diamond, 2 Black Peak, 4 Black Peak]\n6-You must choose between the 5 cards you have, which you want to change, by typing a position of one of the 0-4 cards.\n7-He who has two equal cards of one and three equal cards of another will win.")
-                
-                print("\nA- You want to go back to the menu? \nB- Close the game?")
+                cleanConsole() 
+                print (Fore.GREEN + "\n\n\t\t\tH O W   T O   P L A Y   I T ?" + Fore.WHITE)
+                print(Fore.YELLOW + "\n1- Enter your name.\n\n2- Enter your last name.\n\n3- Several options will appear to be chosen each time it is your turn.\n\n4- You will have the option to keep a card from the deck and exchange it for one of your hand or discard the card from the deck.\n\n5- If you choose to change the card in the deck to one in the hand, your hand will appear:\n\n\t[7 Black Peak, 6 Black Peak, A Red Diamond, 2 Black Peak, 4 Black Peak]\n\n6- You must choose between the 5 cards you have, which you want to change, by typing a position of one of the 0-4 cards.\n\n7- He who has two equal cards of one and three equal cards of another will win.\n" +Fore.WHITE)
+                print("-----"*22)
+                print("\n\t\t\t\t A -- You want to go back to the menu?\n\n\t\t\t\t B -- Close the game?\n")
                 while True:
-                    num2 = input("ANSWER: ").upper()
+                    num2 = input("\t\t\t\t -- A N S W E R : ").upper()
                     if num2 == "A":
                         principalMenu()
                     if num2 == "B":
-                        print("The game will close, wait a moment, please.")
+                        cleanConsole()
+                        print (Fore.RED + "\t\t\t\t\t《  《  《  《  《  《  》  》  》  》  》  》  " + Fore.WHITE)
+                        print("""
+                ---- ||  T h e   g a m e   w i l l   c l o s e,   w a i t   a   m o m e n t,   p l e a s e.  ||----
+                """)
+                        print(Fore.RED + "\t\t\t\t\t《  《  《  《  《  《  》  》  》  》  》  》  " + Fore.WHITE)
                         sys.exit()
                     else:
                         print("You have entered an incorrect character.\nChoose an A OR B option.")
@@ -294,9 +322,11 @@ class principalMenu:
                 #Just present the message that the game is closing and closing.
                 
                 cleanConsole()
+                print (Fore.RED + "\t\t\t\t\t《  《  《  《  《  《  》  》  》  》  》  》  " + Fore.WHITE)
                 print("""
-                ---- The game will close, wait a moment, please. ----
+                ---- ||  T h e   g a m e   w i l l   c l o s e,   w a i t   a   m o m e n t,   p l e a s e.  ||----
                 """)
+                print(Fore.RED + "\t\t\t\t\t《  《  《  《  《  《  》  》  》  》  》  》  " + Fore.WHITE)
                 sys.exit()
 
             else:
