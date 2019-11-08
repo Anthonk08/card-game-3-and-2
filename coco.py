@@ -78,7 +78,7 @@ class Players:
         #Filling a String with the 5 cards to print on each player’s data.
         listCard = ""
         for card in self.handCard:
-            listCard += card.information() + " "
+            listCard += card.information() + " | "
         return (listCard)
         
 
@@ -151,11 +151,11 @@ class Game:
         while True:
             cleanConsole()
             if self.winner() == True:
-                print("∺∺" *20)
+                print("∺∺∺∺" *20)
                 print (Fore.GREEN + """
-                \t--YOU WIN--
+                \t--Y O U  W I N--
                 """+ Fore.WHITE) 
-                print("∺∺" *20)
+                print("∺∺∺∺" *20)
                 break
             
             print("∸∸∸∸∸∸∸∸" *20)
@@ -207,7 +207,7 @@ class Game:
                 print ("-----" *10)
                 # \n ------ [0]-------- [1] --------- [2] --------- [3] ---------- [4]
                 print ("You have this mallet: \n", self.turnOfPlayer.showCards())
-                print(" ----- [0] -------- [1] -------- [2] -------- [3] -------- [4]")
+                print(" ------ [0] --------------- [1] ------------- [2] ------------- [3] ------------- [4] -------- *CARD ADDED* ---")
                 
 
                 option = ["0", "1", "2", "3", "4"]
@@ -219,7 +219,7 @@ class Game:
                     elif elige in option:
                         self.baraja.discard_deck.append(self.turnOfPlayer.handCard.pop(int(elige)))
                         print("--You kept these cards: ", self.turnOfPlayer.showCards())
-                        # print("---- [0] ---- [1] ---- [2] ---- [3] ----[4]")
+                        # print("----- [0] ---- [1] ---- [2] ---- [3] ----[4] ")
                         break
                     else:
                         print( Fore.RED + "Error, digit an incorrect number, you must enter a number of 0-4" + Fore.WHITE)
