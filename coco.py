@@ -26,6 +26,8 @@ class Deck:
         card_list = []
         values = ["A","2","3","4","5","6","7","8","9","10","J","Q","K"]
         symbols = [["Red","Heart"],["Red","Diamond"],["Black","Clover"],["Black","Peak"]]
+        # symbols = [["Red","Heart |♥|"],["Red","Diamond |♦|"],["Black","Clover |♣|"],["Black","Peak |♠|"]]
+       
         for s in symbols:
             for v in values:
                 card_list.append(Card(v,s[0],s[1]) )
@@ -78,7 +80,7 @@ class Players:
         #Filling a String with the 5 cards to print on each player’s data.
         listCard = ""
         for card in self.handCard:
-            listCard += card.information() + " "
+            listCard += card.information() + " | "
         return (listCard)
         
 
@@ -151,11 +153,11 @@ class Game:
         while True:
             cleanConsole()
             if self.winner() == True:
-                print("∺∺" *20)
+                print("∺∺∺∺" *20)
                 print (Fore.GREEN + """
-                \t--YOU WIN--
+                \t--Y O U  W I N--
                 """+ Fore.WHITE) 
-                print("∺∺" *20)
+                print("∺∺∺∺" *20)
                 break
             
             print("∸∸∸∸∸∸∸∸" *20)
@@ -207,7 +209,7 @@ class Game:
                 print ("-----" *10)
                 # \n ------ [0]-------- [1] --------- [2] --------- [3] ---------- [4]
                 print ("You have this mallet: \n", self.turnOfPlayer.showCards())
-                print(" ----- [0] -------- [1] -------- [2] -------- [3] -------- [4]")
+                print(" ------ [0] ------------- [1] -------------- [2] ------------- [3] ------------- [4] -------- *CARD ADDED* ---")
                 
 
                 option = ["0", "1", "2", "3", "4"]
@@ -219,7 +221,7 @@ class Game:
                     elif elige in option:
                         self.baraja.discard_deck.append(self.turnOfPlayer.handCard.pop(int(elige)))
                         print("--You kept these cards: ", self.turnOfPlayer.showCards())
-                        # print("---- [0] ---- [1] ---- [2] ---- [3] ----[4]")
+                        # print("----- [0] ---- [1] ---- [2] ---- [3] ----[4] ")
                         break
                     else:
                         print( Fore.RED + "Error, digit an incorrect number, you must enter a number of 0-4" + Fore.WHITE)
@@ -263,9 +265,7 @@ class principalMenu:
     def __init__(self):
         cleanConsole()
         print("""
-
-        \n\t\t\tCARD GAME 3 & 2 \n\t\t\tChoose An Option: \n\t\t\t1 -- START. \n\t\t\t2 -- HELP. \n\t\t\t3 -- CLOSE
-        
+        \nCARD GAME 3 & 2 \nChoose An Option: \n1 -- START. \n2 -- HELP. \n3 -- CLOSE
         """)    
         while True:
             num = input("\t\t\tANSWER: ") 
