@@ -174,21 +174,21 @@ class Game:
                     print(self.turnOfPlayer.addCard(cardToAdd))
                     self.turn()
                     
-                if self.winner() == True:
-                    cleanConsole()
-                    print("∺∺∺∺∺" *22)
-                    print (Fore.GREEN + """
-                    \t\t\t--- Y O U  W I N ---
-                    """ + Fore.WHITE) 
-                    print("∺∺∺∺∺" *22)
-                    break
-                cleanConsole()
+                # cleanConsole()
                 #Changes players turn
                 self.changeTurnOfPlayer()
 
-            
             else:
                 print(Fore.RED +"Error, you’ve entered an incorrect number.\nChoose an option of 1-2." + Fore.WHITE)
+
+        if self.winner() == True:
+            cleanConsole()
+            print("∺∺∺∺∺" *22)
+            print (Fore.GREEN + """
+            \t\t\t--- Y O U  W I N ---
+            """ + Fore.WHITE) 
+            print("∺∺∺∺∺" *22)
+            sys.exit()
             
 
     def turn(self):
