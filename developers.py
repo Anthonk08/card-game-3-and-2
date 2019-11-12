@@ -135,11 +135,7 @@ class Game:
         
         """)
         self.choice() 
-        
-        # self.winner()
-        
-        #X(le falta algo)
-       
+
     def changeTurnOfPlayer(self):
         #Change of player, for shifts.
         self.turnOfPlayer = self.player1 if self.turnOfPlayer == self.player2 else self.player2  
@@ -266,49 +262,49 @@ class principalMenu:
         print(Fore.RED + "\t\t\t" + " ♥  ♦  ♣  ♠  "*4 , Fore.WHITE)
         print ("""\n\t\t\t\tC h o o s e   A n   O p t i o n : \n\n\t\t\t\t\t1 -- START. \n\n\t\t\t\t\t2 -- HELP. \n\n\t\t\t\t\t3 -- CLOSE
         """)
-        
-        while True:
-            num = input("\t\t\t\tA N S W E R : ") 
-
-            if num == "1":
-                #Here you must start the game by calling the Players class.
-                self.playGame = Game()
-                break
+    
+        num = input("\t\t\t\tA N S W E R : ") 
+        if num == "1":
+            #Here you must start the game by calling the Players class.
+            self.playGame = Game()
+            sys.exit()
 
 
-            if num == "2":
-                #After reading must return to the top of the menu.
-                cleanConsole() 
-                print (Fore.GREEN + "\n\n\t\t\tH O W   T O   P L A Y   I T ?" + Fore.WHITE)
-                print(Fore.YELLOW + "\n1- Enter your name.\n\n2- Enter your last name.\n\n3- Several options will appear to be chosen each time it is your turn.\n\n4- You will have the option to keep a card from the deck and exchange it for one of your hand or discard the card from the deck.\n\n5- If you choose to change the card in the deck to one in the hand, your hand will appear:\n\n\t[7 Black Peak, 6 Black Peak, A Red Diamond, 2 Black Peak, 4 Black Peak]\n\n6- You must choose between the 5 cards you have, which you want to change, by typing a position of one of the 0-4 cards.\n\n7- He who has two equal cards of one and three equal cards of another will win.\n" +Fore.WHITE)
-                print("-----"*22)
-                print("\n\t\t\t\t A -- You want to go back to the menu?\n\n\t\t\t\t B -- Close the game?\n")
-                while True:
-                    num2 = input("\t\t\t\t -- A N S W E R : ").upper()
-                    if num2 == "A":
-                        principalMenu()
-                    if num2 == "B":
-                        cleanConsole()
-                        print (Fore.RED + "\t\t\t\t\t《  《  《  《  《  《  》  》  》  》  》  》  " + Fore.WHITE)
-                        print("""
-                ---- ||  T h e   g a m e   w i l l   c l o s e,   w a i t   a   m o m e n t,   p l e a s e.  ||----
-                """)
-                        print(Fore.RED + "\t\t\t\t\t《  《  《  《  《  《  》  》  》  》  》  》  " + Fore.WHITE)
-                        sys.exit()
-                    else:
-                        print("You have entered an incorrect character.\nChoose an A OR B option.")
-            if num == "3":
-                #Just present the message that the game is closing and closing.
-                
-                cleanConsole()
-                print (Fore.RED + "\t\t\t\t\t《  《  《  《  《  《  》  》  》  》  》  》  " + Fore.WHITE)
-                print("""
-                ---- ||  T h e   g a m e   w i l l   c l o s e,   w a i t   a   m o m e n t,   p l e a s e.  ||----
-                """)
-                print(Fore.RED + "\t\t\t\t\t《  《  《  《  《  《  》  》  》  》  》  》  " + Fore.WHITE)
-                sys.exit()
+        if num == "2":
+            #After reading must return to the top of the menu.
+            cleanConsole() 
+            print (Fore.GREEN + "\n\n\t\t\tH O W   T O   P L A Y   I T ?" + Fore.WHITE)
+            print(Fore.YELLOW + "\n1- Enter your name.\n\n2- Enter your last name.\n\n3- Several options will appear to be chosen each time it is your turn.\n\n4- You will have the option to keep a card from the deck and exchange it for one of your hand or discard the card from the deck.\n\n5- If you choose to change the card in the deck to one in the hand, your hand will appear:\n\n\t[7 Black Peak, 6 Black Peak, A Red Diamond, 2 Black Peak, 4 Black Peak]\n\n6- You must choose between the 5 cards you have, which you want to change, by typing a position of one of the 0-4 cards.\n\n7- He who has two equal cards of one and three equal cards of another will win.\n" +Fore.WHITE)
+            print("-----"*22)
+            print("\n\t\t\t\t A -- You want to go back to the menu?\n\n\t\t\t\t B -- Close the game?\n")
+            while True:
+                num2 = input("\t\t\t\t -- A N S W E R : ").upper()
+                if num2 == "A":
+                    principalMenu()
+                if num2 == "B":
+                    cleanConsole()
+                    print (Fore.RED + "\t\t\t\t\t《  《  《  《  《  《  》  》  》  》  》  》  " + Fore.WHITE)
+                    print("""
+            ---- ||  T h e   g a m e   w i l l   c l o s e,   w a i t   a   m o m e n t,   p l e a s e.  ||----
+            """)
+                    print(Fore.RED + "\t\t\t\t\t《  《  《  《  《  《  》  》  》  》  》  》  " + Fore.WHITE)
+                    sys.exit()
+                else:
+                    print("You have entered an incorrect character.\nChoose an A OR B option.")
+        if num == "3":
+            #Just present the message that the game is closing and closing.
+            
+            cleanConsole()
+            print (Fore.RED + "\t\t\t\t\t《  《  《  《  《  《  》  》  》  》  》  》  " + Fore.WHITE)
+            print("""
+            ---- ||  T h e   g a m e   w i l l   c l o s e,   w a i t   a   m o m e n t,   p l e a s e.  ||----
+            """)
+            print(Fore.RED + "\t\t\t\t\t《  《  《  《  《  《  》  》  》  》  》  》  " + Fore.WHITE)
+            sys.exit()
 
-            else:
-                print(Fore.RED +"Error, you’ve entered an incorrect number.\nChoose an option of 1-3." + Fore.WHITE)
+        else:
+            print(Fore.RED +"Error, you’ve entered an incorrect number.\nChoose an option of 1-3." + Fore.WHITE)
+            time.sleep(0.8)
+            principalMenu()
         
 principalMenu()
