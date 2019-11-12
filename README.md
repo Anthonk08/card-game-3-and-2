@@ -23,9 +23,14 @@
 >## `Instruction`
 >To compile the game it is necessary to have downloaded python (3.7). 
 >Similarly, [colorama](#Use-of-Colorama) (Library of colors reserved in python).
+>
 >You must open the main file and run it to start the game, you are asked to enter the names and surnames of the players and the decks of each will be created.
+>
 >When starting the game a card will appear automatically and you will have 2 options: the first to keep the card shown or the second to throw the same card.
->In the following rounds you can choose whether you want a new card from the middle deck by typing the number "1" or the card that appears in the discard deck by typing the number "2". The card you have chosen will be added to your deck and you choose which of the 6 cards you want to replace it (counting from 0 to 5), this will happen around the entire game until one of the players fulfills the objective of the game; get 3 cards of the same value and similarly 2 other cards, but with a value different from the remaining 3, The game ends with a "You Win" sign.
+>
+>In the following rounds you can choose whether you want a new card from the middle deck by typing the number "1" or the card that appears in the discard deck by typing the number "2". 
+>
+>The card you have chosen will be added to your deck and you choose which of the 6 cards you want to replace it (counting from 0 to 5), this will happen around the entire game until one of the players fulfills the objective of the game; get 3 cards of the same value and similarly 2 other cards, but with a value different from the remaining 3, The game ends with a "You Win" sign.
 
 >## `Use of Colorama`
 >You can implement colored text and background on the console.
