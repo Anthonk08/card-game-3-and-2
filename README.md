@@ -55,8 +55,7 @@
 >
 >1. from colorama import Fore, init
 >2. init()
->3.
->4. print(Fore.GREEN + "Recursos Python")
+>3. print(Fore.GREEN + "Recursos Python")
 
 
 >## `Story Of Tres Y Dos`
