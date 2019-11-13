@@ -7,30 +7,31 @@ from deck import Deck
 from players import Players
 import time
 
+#Method responsible for the operation of player handling and shift exchange.
 class Game:
     
     #Attributes of the class Game and method call of other classes.
     def __init__(self):
         #cleanConsole used to clean the console.
         cleanConsole()
-        print("---"*37) #design
+        print("---"*37)
         self.player1 = Players()
-        print("---"*37) #design
+        print("---"*37)
         time.sleep(0.4)
         cleanConsole()
         print("---"*37)
         self.player2 = Players()
         print("---"*37)
         time.sleep(0.4)
-        self.baraja = Deck()
-        self.baraja.fillDeck()
-        self.player1.fillHandCard(self.baraja)
-        self.player2.fillHandCard(self.baraja)
+        self.PackOfCards = Deck()
+        self.PackOfCards.fillDeck()
+        self.player1.fillHandCard(self.PackOfCards)
+        self.player2.fillHandCard(self.PackOfCards)
         cleanConsole()
         print(self.player1.show())
         print("---"*37)
         
-        self.cardToAdd = self.baraja.sendCard()
+        self.cardToAdd = self.PackOfCards.sendCard()
         print("New Letter Added: ",self.player1.addCard(self.cardToAdd))
         self.turnOfPlayer = self.player1
         self.turn()
@@ -44,37 +45,44 @@ class Game:
     def choice(self):
         self.changeTurnOfPlayer()
         
-        while not self.winner():
+        while True:
+            cleanConsole()
             print("∸∸∸" *37)
             print("\nChoose one of the options: \n1 -- You want a card from the deck. \n2 -- You want a card from the discard deck.")
-            print("\nCard in the discard deck: ", self.baraja.showLastCard().information())
+            print("\nCard in the discard deck: ", self.PackOfCards.showLastCard().information())
             print(self.turnOfPlayer.show())
             print("---"*37)
         
-            choises = input("ANSWER: ") 
-            if choises == "1" or choises == "2":
-                if choises == "1":
+            optionChoices = input("ANSWER: ") 
+            #He’s in charge of taking or discarding a letter.
+            if optionChoices == "1" or optionChoices == "2":
+                if optionChoices == "1":
                     #In this If is checked if the deck is left empty, the discard deck is shuffled and the cards are added back to the deck.
-                    if len(self.baraja.cards) == 0:
-                        self.baraja.shufflingCards() #agregado 123
+                    if len(self.PackOfCards.cards) == 0:
+                        self.PackOfCards.shufflingCards()
 
-                    cardToAdd = self.baraja.sendCard()
+                    cardToAdd = self.PackOfCards.sendCard()
                     print (self.turnOfPlayer.addCard(cardToAdd))
-                    self.turn()  
+                    self.turn()
                     
-                elif choises == "2":
-                    cardToAdd = self.baraja.sendDiscard()
+                elif optionChoices == "2":
+                    cardToAdd = self.PackOfCards.sendDiscard()
                     print(self.turnOfPlayer.addCard(cardToAdd))
-                    self.turn()     
+                    self.turn()
+                         
                 cleanConsole()
+                #Condition that verifies if the winner method returns true
                 if self.winner():
                     break
                 #Changes players turn
                 self.changeTurnOfPlayer()
             else:
                 print(Fore.RED +"Error, you’ve entered an incorrect number.\nChoose an option of 1-2." + Fore.WHITE)
+                time.sleep(0.8)
 
         cleanConsole()
+        #If the winner method returns true, this part presents a message with the winner and his deck and presents the You Win message.
+        print(self.turnOfPlayer.show())
         print("∺∺∺∺∺" *22)
         print (Fore.GREEN + """
         \t\t\t--- Y O U  W I N ---
@@ -82,14 +90,15 @@ class Game:
         print("∺∺∺∺∺" *22)
         sys.exit()
 
+    #Turn method takes care of the choices made in each player’s hand
     def turn(self):
         print("\nOptions of the chart: \nA -- you keep the letter. \nB -- throws the same card.")
         while True:
-            write = input("Answer: ").upper()
-            if write == "B":
-                self.baraja.discard_deck.append(self.turnOfPlayer.handCard.pop())
+            deckOption = input("Answer: ").upper()
+            if deckOption == "B":
+                self.PackOfCards.discard_deck.append(self.turnOfPlayer.handCard.pop())
                 break
-            elif write == "A":
+            elif deckOption == "A":
                 print("")
                 print ("---" *37)
                 print ("You have this mallet: \n", self.turnOfPlayer.showCards())
@@ -97,39 +106,44 @@ class Game:
 
                 option = ["0", "1", "2", "3", "4"]
                 while True:
-                    elige = input("Card position you want to change: ")
-                    if elige == "5":
+                    cardPosition = input("Card position you want to change: ")
+                    if cardPosition == "5":
                         print( Fore.RED + "Error, position 5 contains the card to be added." + Fore.WHITE)
-                        elige = input("Card position you want to change: " )
-                    elif elige in option:
-                        self.baraja.discard_deck.append(self.turnOfPlayer.handCard.pop(int(elige)))
+                        time.sleep(0.8)
+                        cardPosition = input("Card position you want to change: " )
+                    elif cardPosition in option:
+                        self.PackOfCards.discard_deck.append(self.turnOfPlayer.handCard.pop(int(cardPosition)))
                         print("You kept these cards: ", self.turnOfPlayer.showCards())
                         break
                     else:
                         print( Fore.RED + "Error, digit an incorrect number, you must enter a number of 0-4" + Fore.WHITE)
+                        time.sleep(0.8)
                 break
             else:
                 print(Fore.RED +"Error, digit an incorrect character, you must type the letter A or B." +Fore.WHITE)
-
+                time.sleep(0.8)
         
     #This method will verify if any of the players have the necessary cards to win.
     def winner(self):
-        Mazodeljugador = self.turnOfPlayer.handCard
-        g=[]
-        c=[]
-        x=0
-        while x < len(Mazodeljugador):
-          if len(g)==0 and len(c)==0:
-            g.append(Mazodeljugador[x].value)
-            c.append(Mazodeljugador[-(x+1)].value)
-          else:
-            if Mazodeljugador[x].value in g:
-              g.append(Mazodeljugador[x].value)
-            if Mazodeljugador[-(x+1)].value in c:
-              c.append(Mazodeljugador[-(x+1)].value)
-            if (len(g)==3 and len(c)==2) or (len(g)==2 and len(c)==3):
-              return True   
-          x+=1
+        deckOfPlayer = []
+        for card in self.turnOfPlayer.handCard:
+            deckOfPlayer.append(card.value)
+        deckOfPlayer.sort()
+        possibility1=[]
+        possibility2=[]
+        i=0
+        while i < len(deckOfPlayer):
+            if len(possibility1) == 0 and len(possibility2) == 0:
+                possibility1.append(deckOfPlayer[i])
+                possibility2.append(deckOfPlayer[-(i+1)])
+            else:
+                if deckOfPlayer[i] in possibility1:
+                    possibility1.append(deckOfPlayer[i])
+                if deckOfPlayer[-(i+1)] in possibility2:
+                    possibility2.append(deckOfPlayer[-(i+1)])
+                if (len(possibility1) == 3 and len(possibility2) == 2) or (len(possibility1) == 2 and len(possibility2) == 3):
+                    return True   
+            i+=1
         return False
 
 #Function that cleans the console.

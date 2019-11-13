@@ -1,23 +1,25 @@
 import colorama 
 from colorama import Fore
 
+#Class players responsible for the data of each player and their deck.
 class Players:
-    num_player = 1
+    numPlayer = 1
     def __init__(self):
         #Attributes of the class Players.
         #HandCard list creation and player method call.
         self.handCard = []
         self.player()
-        Players.num_player += 1
+        Players.numPlayer += 1
 
     #Call the item deck 5 times to fill the hand.
-    def fillHandCard(self, baraja):
+    def fillHandCard(self, PackOfCards):
         #Fill each player’s deck. 
         for i in range(0,5):
-            AddF = baraja.sendCard()
+            AddF = PackOfCards.sendCard()
             self.handCard.append(AddF)
-            
-    def discarHandCard(self):
+    
+    #Removes a card from the player’s hand.
+    def discardHandCard(self):
         return self.handCard.pop()
 
     #Adds a card to a player’s hand.
@@ -38,11 +40,12 @@ class Players:
 
     #Method that asks for each player’s data.
     def player(self):
-        while True:
+        validationTool = True
+        while validationTool:
             self.name = input("\n\t\t\t\tPlayer name: ")
             self.lastName = input("\t\t\t\tPlayer last name: ")
             if self.name == "" or self.lastName == "":
                 print(Fore.RED + "\t\t\t\tError, wrong information." + Fore.WHITE)
             else:
-                self.player_num = f"Player #{Players.num_player}."
-                break
+                self.player_num = f"Player #{Players.numPlayer}."
+                validationTool = False
