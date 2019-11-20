@@ -34,7 +34,7 @@ class Game:
         self.cardToAdd = self.PackOfCards.sendCard()
         print("New Letter Added: ",self.player1.addCard(self.cardToAdd))
         self.turnOfPlayer = self.player1
-        self.turn()
+        self.turn(True)
         self.choice() 
     
     #Change of player, for shifts.
@@ -43,8 +43,8 @@ class Game:
 
     #The choise method asks the player which card he will choose: a card from the deck or a card from the discard deck.
     def choice(self):
-        self.changeTurnOfPlayer()
         
+        self.changeTurnOfPlayer()
         while True:
             cleanConsole()
             print("∸∸∸" *37)
@@ -63,12 +63,14 @@ class Game:
 
                     cardToAdd = self.PackOfCards.sendCard()
                     print (self.turnOfPlayer.addCard(cardToAdd))
-                    self.turn()
+                    isNormalDeck = True
+                    self.turn(isNormalDeck)
                     
                 elif optionChoices == "2":
                     cardToAdd = self.PackOfCards.sendDiscard()
                     print(self.turnOfPlayer.addCard(cardToAdd))
-                    self.turn()
+                    isNormalDeck = False
+                    self.turn(isNormalDeck)
                          
                 cleanConsole()
                 #Condition that verifies if the winner method returns true
@@ -91,10 +93,12 @@ class Game:
         sys.exit()
 
     #Turn method takes care of the choices made in each player’s hand
-    def turn(self):
-        print("\nOptions of the chart: \nA -- you keep the letter. \nB -- throws the same card.")
+    def turn(self,isNormalDeck):
+        if isNormalDeck:
+            print("\nOptions of the chart: \nA -- you keep the letter. \nB -- throws the same card.")
         while True:
-            deckOption = input("Answer: ").upper()
+            
+            deckOption = input("Answer: ").upper() if isNormalDeck else "A"
             if deckOption == "B":
                 self.PackOfCards.discard_deck.append(self.turnOfPlayer.handCard.pop())
                 break
